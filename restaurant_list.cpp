@@ -2,10 +2,10 @@
 
 
 // Creates a restaurant struct and gives it the given data, then the struct is returned
-RESTAURANT createRestaurant(unsigned int id, char *name, char *address, unsigned int type, char *description) {
+RESTAURANT createRestaurant(unsigned int id, char *name, char *address, char *type, char *description) {
     RESTAURANT res;
     res.id = id;
-    res.type = type;
+    strcpy_s(res.type, sizeof(res.type), type);
     strcpy_s(res.name, sizeof(res.name), name);
     strcpy_s(res.address, sizeof(res.address), address);
     strcpy_s(res.description, sizeof(res.description), description);
@@ -23,6 +23,8 @@ RESTAURANT_LIST* createRestaurantList() {
 }
 // Completely erases and deallocates the restaurant linked list, with all its nodes, deallocates the list root as well
 void eraseRestaurantList(RESTAURANT_LIST* list) {
+    if (list == NULL)
+        return;
     while (list->length != 0) {
         removeCurrentItemRestaurantList(list);
     }
@@ -88,8 +90,13 @@ void removeCurrentItemRestaurantList(RESTAURANT_LIST* list) {
         list->current->previous->next = list->current->next;
     if (list->current->next != NULL)
         list->current->next->previous = list->current->previous;
+    RESTAURANT_ITEM* temp;
+    if (list->current->next != NULL)
+        temp = list->current->next;
+    else
+        temp = list->tail;
     free(list->current);
-    list->current = list->tail;
+    list->current = temp;
     list->length--;
 }
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
@@ -146,13 +153,13 @@ int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath) {
         if ((readStringFromFileRestaurant(input, res.address, sizeof(res.address)) == ERR_LOAD)) {
             fclose(input);
             return ERR_LOAD;}
-        if (fscanf_s(input, "%u;\n", &res.type) != 1) {
+        if ((readStringFromFileRestaurant(input, res.type, sizeof(res.type)) == ERR_LOAD)) {
             fclose(input);
             return ERR_LOAD;}
         if ((readStringFromFileRestaurant(input, res.description, sizeof(res.description)) == ERR_LOAD)) {
             fclose(input);
             return ERR_LOAD;}
-        printf("%u %s %s %u %s\n", res.id, res.name, res.address, res.type, res.description);
+        printf("%u %s %s %s %s\n", res.id, res.name, res.address, res.type, res.description);
         if (addItemToEndRestaurantList(list, res) == ERR_ALLOC) {
             fclose(input);
             return ERR_ALLOC;}
@@ -168,7 +175,7 @@ int saveToFileRestaurantList(RESTAURANT_LIST* list, char *outputFilePath) {
 
     list->current = list->head;
     do {
-        fprintf_s(output, "%u;\n%s;\n%s;\n%u;\n%s;\n", list->current->data.id, list->current->data.name, list->current->data.address, list->current->data.type, list->current->data.description);
+        fprintf_s(output, "%u;\n%s;\n%s;\n%s;\n%s;\n", list->current->data.id, list->current->data.name, list->current->data.address, list->current->data.type, list->current->data.description);
     } while (goToNextItemRestaurantList(list) != ERR_NO_NEXT);
 
     fclose(output);

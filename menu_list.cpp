@@ -22,6 +22,8 @@ MENU_LIST* createMenuList() {
 }
 // Completely erases and deallocates the menu linked list, with all its nodes, deallocates the list root as well
 void eraseMenuList(MENU_LIST* list) {
+    if (list == NULL)
+        return;
     while (list->length != 0) {
         removeCurrentItemMenuList(list);
     }
@@ -87,8 +89,13 @@ void removeCurrentItemMenuList(MENU_LIST* list) {
         list->current->previous->next = list->current->next;
     if (list->current->next != NULL)
         list->current->next->previous = list->current->previous;
+    MENU_ITEM* temp;
+    if (list->current->next != NULL)
+        temp = list->current->next;
+    else
+        temp = list->tail;
     free(list->current);
-    list->current = list->tail;
+    list->current = temp;
     list->length--;
 }
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
@@ -173,4 +180,32 @@ int saveToFileMenuList(MENU_LIST* list, char* outputFilePath) {
 
     fclose(output);
     return OK;
+}
+// CHECK WORKING
+void removeAllItemsWithResIdMenuList(MENU_LIST* list, unsigned int resId) {
+    list->current = list->head;
+    while (list->length != 0) {
+        if (list->current->data.res_id == resId) {
+            removeCurrentItemMenuList(list);
+        }
+        else {
+            if (goToNextItemMenuList(list) != ERR_NO_NEXT) {
+                continue;}
+            else {
+                break;}
+        }
+    }
+}
+// CHECK WORKING
+void fixIdSequenceMenuList(MENU_LIST* list) {
+    if (list->length == 0)
+        return;
+    list->current = list->head;
+    unsigned int index = 0;
+    do {
+        if (list->current->data.id != index) {
+            list->current->data.id = index;
+        }
+        index++;
+    } while (goToNextItemMenuList(list) != ERR_NO_NEXT);
 }

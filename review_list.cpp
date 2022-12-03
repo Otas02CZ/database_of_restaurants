@@ -23,6 +23,8 @@ REVIEW_LIST* createReviewList() {
 }
 // Completely erases and deallocates the review linked list, with all its nodes, deallocates the list root as well
 void eraseReviewList(REVIEW_LIST* list) {
+    if (list == NULL)
+        return;
     while (list->length != 0) {
         removeCurrentItemReviewList(list);
     }
@@ -88,8 +90,13 @@ void removeCurrentItemReviewList(REVIEW_LIST* list) {
         list->current->previous->next = list->current->next;
     if (list->current->next != NULL)
         list->current->next->previous = list->current->previous;
+    REVIEW_ITEM* temp;
+    if (list->current->next != NULL)
+        temp = list->current->next;
+    else
+        temp = list->tail;
     free(list->current);
-    list->current = list->tail;
+    list->current = temp;
     list->length--;
 }
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
@@ -160,7 +167,7 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
     fclose(input);
     return OK;
 }
-
+// Saves the review linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
     FILE* output;
     if (fopen_s(&output, outputFilePath, "w") != 0)
@@ -174,4 +181,31 @@ int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
 
     fclose(output);
     return OK;
+}
+// CHECK WORKING
+void removeAllItemsWithResIdReviewList(REVIEW_LIST* list, unsigned int resId) {
+    list->current = list->head;
+    while (list->length != 0) {
+        if (list->current->data.res_id == resId) {
+            removeCurrentItemReviewList(list);
+        }
+        else {
+            if (goToNextItemReviewList(list) != ERR_NO_NEXT) {
+                continue;}
+            else {
+                break;}
+        }
+    }
+}
+// CHECK WORKING
+void fixIdSequenceReviewList(REVIEW_LIST* list) {
+    if (list->length == 0)
+        return;
+    list->current = list->head;
+    unsigned int index = 0;
+    do {
+        if (list->current->data.id != index) {
+            list->current->data.id = index;}
+        index++;
+    } while (goToNextItemReviewList(list) != ERR_NO_NEXT);
 }

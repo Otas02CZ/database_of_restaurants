@@ -77,6 +77,41 @@ build CMakeFiles\database_of_restaurants.dir\menu_list.cpp.obj: CXX_COMPILER__da
   TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
   TARGET_PDB = database_of_restaurants.pdb
 
+build CMakeFiles\database_of_restaurants.dir\functions.cpp.obj: CXX_COMPILER__database_of_restaurants_Debug I$:\Git\database_of_restaurants\functions.cpp || cmake_object_order_depends_target_database_of_restaurants
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  OBJECT_DIR = CMakeFiles\database_of_restaurants.dir
+  OBJECT_FILE_DIR = CMakeFiles\database_of_restaurants.dir
+  TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
+  TARGET_PDB = database_of_restaurants.pdb
+
+build CMakeFiles\database_of_restaurants.dir\work_with_all_lists.cpp.obj: CXX_COMPILER__database_of_restaurants_Debug I$:\Git\database_of_restaurants\work_with_all_lists.cpp || cmake_object_order_depends_target_database_of_restaurants
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  OBJECT_DIR = CMakeFiles\database_of_restaurants.dir
+  OBJECT_FILE_DIR = CMakeFiles\database_of_restaurants.dir
+  TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
+  TARGET_PDB = database_of_restaurants.pdb
+
+build CMakeFiles\database_of_restaurants.dir\work_with_restaurants.cpp.obj: CXX_COMPILER__database_of_restaurants_Debug I$:\Git\database_of_restaurants\work_with_restaurants.cpp || cmake_object_order_depends_target_database_of_restaurants
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  OBJECT_DIR = CMakeFiles\database_of_restaurants.dir
+  OBJECT_FILE_DIR = CMakeFiles\database_of_restaurants.dir
+  TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
+  TARGET_PDB = database_of_restaurants.pdb
+
+build CMakeFiles\database_of_restaurants.dir\work_with_reviews.cpp.obj: CXX_COMPILER__database_of_restaurants_Debug I$:\Git\database_of_restaurants\work_with_reviews.cpp || cmake_object_order_depends_target_database_of_restaurants
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  OBJECT_DIR = CMakeFiles\database_of_restaurants.dir
+  OBJECT_FILE_DIR = CMakeFiles\database_of_restaurants.dir
+  TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
+  TARGET_PDB = database_of_restaurants.pdb
+
+build CMakeFiles\database_of_restaurants.dir\work_with_menus.cpp.obj: CXX_COMPILER__database_of_restaurants_Debug I$:\Git\database_of_restaurants\work_with_menus.cpp || cmake_object_order_depends_target_database_of_restaurants
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  OBJECT_DIR = CMakeFiles\database_of_restaurants.dir
+  OBJECT_FILE_DIR = CMakeFiles\database_of_restaurants.dir
+  TARGET_COMPILE_PDB = CMakeFiles\database_of_restaurants.dir\
+  TARGET_PDB = database_of_restaurants.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target database_of_restaurants
@@ -85,7 +120,7 @@ build CMakeFiles\database_of_restaurants.dir\menu_list.cpp.obj: CXX_COMPILER__da
 #############################################
 # Link the executable database_of_restaurants.exe
 
-build database_of_restaurants.exe: CXX_EXECUTABLE_LINKER__database_of_restaurants_Debug CMakeFiles\database_of_restaurants.dir\database_of_restaurants.cpp.obj CMakeFiles\database_of_restaurants.dir\restaurant_list.cpp.obj CMakeFiles\database_of_restaurants.dir\review_list.cpp.obj CMakeFiles\database_of_restaurants.dir\menu_list.cpp.obj
+build database_of_restaurants.exe: CXX_EXECUTABLE_LINKER__database_of_restaurants_Debug CMakeFiles\database_of_restaurants.dir\database_of_restaurants.cpp.obj CMakeFiles\database_of_restaurants.dir\restaurant_list.cpp.obj CMakeFiles\database_of_restaurants.dir\review_list.cpp.obj CMakeFiles\database_of_restaurants.dir\menu_list.cpp.obj CMakeFiles\database_of_restaurants.dir\functions.cpp.obj CMakeFiles\database_of_restaurants.dir\work_with_all_lists.cpp.obj CMakeFiles\database_of_restaurants.dir\work_with_restaurants.cpp.obj CMakeFiles\database_of_restaurants.dir\work_with_reviews.cpp.obj CMakeFiles\database_of_restaurants.dir\work_with_menus.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

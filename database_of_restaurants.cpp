@@ -1,47 +1,80 @@
-﻿#include "imports.h"
+﻿
+#include "imports.h"
+#include "database_of_restaurants.h"
 #include "restaurant_list.h"
 #include "review_list.h"
 #include "menu_list.h"
+#include "functions.h"
+#include "work_with_all_lists.h"
 
-int main() {
-    printf("Ahoj");
-    RESTAURANT_LIST* list = createRestaurantList();
-    if (list == NULL)
-        return 0;
+
+int main(char **argc, int argv) {
+    char vstup[20];
+    getStringInputUntilNewline(vstup, sizeof(vstup));
+    printf("%s", vstup);
+    scanf("%s", vstup);
     char restaurantDataFilePath[200] = "I:/Git/restaurant.txt";
-    //RESTAURANT res;
-    //char name[30] = "Primavera", address[40] = "Zamecka 100", description[200] = "Restauracia dobra";
-    //addItemToEndRestaurantList(list, createRestaurant(0, name, address, 0, description));
-    +
-    printf("%d", loadFromFileRestaurantList(list, restaurantDataFilePath));
-    RESTAURANT res;
-    printf("%d", getCurrentItemDataRestaurantList(list, &res));
-    printf("%s", res.description);
-    printf("Hi");
-    /*goToNextItemRestaurantList(list);
-    res = getCurrentItemDataRestaurantList(list);
-    printf("%s", res.description);
-    printf("HI");
-    */
-    printf("%d", saveToFileRestaurantList(list, restaurantDataFilePath));
-    printf("Hi");
-    list->current = list->head;
-    do {
-        RESTAURANT res2;
-        printf("%d", getCurrentItemDataRestaurantList(list, &res2));
-        printf("%u %s %s %u %s\n", res2.id, res2.name, res2.address, res2.type, res2.description);
-    } while (goToNextItemRestaurantList(list) == OK);
+    char reviewDataFilePath[200] = "I:/Git/review.txt";
+    char menuDataFilePath[200] = "I:/Git/menu.txt";
 
-    if (moveCurrentToSearchedIdRestaurantList(list, 1) == OK) {
-        RESTAURANT res2;
-        printf("%d", getCurrentItemDataRestaurantList(list, &res2));
-        printf("%u %s %s %u %s\n", res2.id, res2.name, res2.address, res2.type, res2.description);
-    }
-    else {
-        printf("Not found index 1.");
-    }
+    if (checkForceEmpyDBCreation(argc, argv, restaurantDataFilePath, reviewDataFilePath, menuDataFilePath) == ERR) {
+        printf("Empty DB recreation failed, please create these files manually. Or move the program somewhere else.\n");
+        printInfoExpectedFiles(restaurantDataFilePath, reviewDataFilePath, menuDataFilePath);
+        return 0;}
 
-    eraseRestaurantList(list);
+    RESTAURANT_LIST* restaurants = NULL;
+    REVIEW_LIST* reviews = NULL;
+    MENU_LIST* menus = NULL;
+    if (initializeAllLinkedLists(&restaurants, &reviews, &menus) == ERR)
+        return 0;
+    if (loadFromFileAllLinkedLists(restaurants, reviews, menus, restaurantDataFilePath, reviewDataFilePath, menuDataFilePath) == ERR) {
+        printInfoExpectedFiles(restaurantDataFilePath, reviewDataFilePath, menuDataFilePath);
+        return 0;}
+
+    // TODO MENU
+    bool isRunning = true;
+    while (isRunning) {
+        system("cls");
+        printf("--------------------------------------\n");
+        printf("---------------BASE MENU--------------\n");
+        printf("--------------------------------------\n");
+        printf(" 1 - SHOW RESTAURANTS OVERVIEW\n");
+        printf(" 2 - ADD RESTAURANT\n");
+        printf(" 3 - SHOW MENU OVERVIEW\n");
+        printf(" 4 - APP INFO\n");
+        printf(" 5 - SAVE AND EXIT\n");
+        printf("--------------------------------------\n");
+        printf("- Please choose from menu [1/2/3/4/5]: ");
+        int choice = getNumericInput(); // input checking function
+        switch (choice) {
+        case 1:
+            // show restaurants overview
+            break;
+        case 2:
+            // add restaurant function
+            break;
+        case 3:
+            //show menu overview
+        case 4:
+            //show app info
+        case 5:
+            isRunning = false;
+            break;
+        }
+    }
+    
+    while (saveToFileAllLinkedLists(restaurants, reviews, menus, restaurantDataFilePath, reviewDataFilePath, menuDataFilePath) == ERR) {
+        printf("The saving process has failed.\nWould you like to try it again or close the app without saving the data?\n[any/close]: ");
+        char cmd[6] = "\0";
+        scanf_s("%s", cmd, (unsigned int)sizeof(cmd));
+        if (strcmp(cmd, "close") == 0) {
+            printf("Not saving, app is closing.\n");
+            break;
+        }
+        consumeInput();
+
+    }
+    eraseAllLinkedLists(restaurants, reviews, menus);
     return 0;
 }
 

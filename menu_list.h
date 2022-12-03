@@ -5,8 +5,8 @@
 typedef struct MENU {
     unsigned int        id;
     unsigned int        res_id;
-    char                name[30];
-    char                description[200];
+    char                name[31];
+    char                description[201];
 }MENU;
 
 typedef struct MENU_ITEM MENU_ITEM;
@@ -37,5 +37,7 @@ void removeCurrentItemMenuList(MENU_LIST* list);
 int moveCurrentToSearchedIdMenuList(MENU_LIST* list, unsigned int searchedValue);
 int loadFromFileMenuList(MENU_LIST* list, char* inputFilePath);
 int saveToFileMenuList(MENU_LIST* list, char* outputFilePath);
+void removeAllItemsWithResIdMenuList(MENU_LIST* list, unsigned int resId);
+void fixIdSequenceMenuList(MENU_LIST* list);
 
 // other search / view / sort methods ?

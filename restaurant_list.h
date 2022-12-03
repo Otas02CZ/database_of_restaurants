@@ -4,10 +4,10 @@
 
 typedef struct RESTAURANT {
     unsigned int        id;
-    char                name[30];
-    char                address[40];
-    unsigned int        type;
-    char                description[200];
+    char                name[31];
+    char                address[41];
+    char                type[21];
+    char                description[201];
 }RESTAURANT;
 
 typedef struct RESTAURANT_ITEM RESTAURANT_ITEM;
@@ -28,7 +28,7 @@ struct RESTAURANT_LIST {
 };
 
 RESTAURANT_LIST* createRestaurantList();
-RESTAURANT createRestaurant(unsigned int id, char *name, char *address, unsigned int type, char *description);
+RESTAURANT createRestaurant(unsigned int id, char *name, char *address, char *type, char *description);
 void eraseRestaurantList(RESTAURANT_LIST* list);
 int addItemToEndRestaurantList(RESTAURANT_LIST* list, RESTAURANT data);
 int goToNextItemRestaurantList(RESTAURANT_LIST* list);

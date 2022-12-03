@@ -5,9 +5,9 @@
 typedef struct REVIEW {
     unsigned int        id;
     unsigned int        res_id;
-    char                title[30];
+    char                title[31];
     unsigned int        score;
-    char                comment[200];
+    char                comment[201];
 }REVIEW;
 
 typedef struct REVIEW_ITEM REVIEW_ITEM;
@@ -38,5 +38,7 @@ void removeCurrentItemReviewList(REVIEW_LIST* list);
 int moveCurrentToSearchedIdReviewList(REVIEW_LIST* list, unsigned int searchedValue);
 int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath);
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath);
+void removeAllItemsWithResIdReviewList(REVIEW_LIST* list, unsigned int resId);
+void fixIdSequenceReviewList(REVIEW_LIST* list);
 
 // other search / view / sort methods ?
