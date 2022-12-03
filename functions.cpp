@@ -27,8 +27,10 @@ int checkForceEmpyDBCreation(char** argc, int argv, char* resPath, char* revPath
 }
 
 void pressEnterToContinue() {
-    while (getchar() != '\n')
-        printf("Press enter to continue: ");
+    printf("Press enter to continue: ");
+    char symbol = 0;
+    while (symbol != '\r' && symbol != '\n') {
+        symbol = getchar();}
 }
 
 void consumeInput() {
@@ -79,7 +81,7 @@ void getStringInputUntilNewline(char* output, unsigned int maxSize) {
 int acceptOperation() {
     printf("Do you want to continue or abort? [y/any]: ");
     char symbol;
-    scanf_s("%c", &symbol);
+    scanf_s("%c", &symbol, (unsigned int)sizeof(symbol));
     while (getchar() != EOF);
     switch (tolower(symbol)) {
     case 'y':
@@ -89,4 +91,24 @@ int acceptOperation() {
         printf("Operation aborted.\n");
         return 0;
     }
+}
+
+void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu) {
+    system("cls");
+    printf("--------------------------------\n");
+    printf("-----------APP OVERVIEW---------\n");
+    printf("--------------------------------\n");
+    printf("-AUTHOR - Otakar Koci @Otas02CZ\n");
+    printf("-BUT Student - ID - 247555\n");
+    printf("-DATE- 2022\n");
+    printf("-OVERVIEW-\n");
+    printf("A simple database application for managing a DB\nof restaurants, menus with meals and reviews.\n");
+    printf("---------------------------------\n");
+    printf("-TOTAL RESTAURANTS- %u\n-RESTAURANTS IN MEMORY- %zd B\n", res->length, (res->length * sizeof(RESTAURANT_ITEM) + sizeof(RESTAURANT_LIST)));
+    printf("---------------------------------\n");
+    printf("-TOTAL REVIEWS- %u\n-REVIEWS IN MEMORY- %zd B\n", rev->length, (rev->length * sizeof(REVIEW_ITEM) + sizeof(REVIEW_LIST)));
+    printf("---------------------------------\n");
+    printf("-TOTAL MEALS- %u\n-MEALS IN MEMORY- %zd B\n", menu->length, (menu->length * sizeof(MENU_ITEM) + sizeof(MENU_LIST)));
+    printf("---------------------------------\n");
+    pressEnterToContinue();
 }

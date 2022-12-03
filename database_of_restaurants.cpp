@@ -6,13 +6,13 @@
 #include "menu_list.h"
 #include "functions.h"
 #include "work_with_all_lists.h"
+#include "work_with_restaurants.h"
+#include "work_with_reviews.h"
+#include "work_with_menus.h"
 
 
 int main(char **argc, int argv) {
-    char vstup[20];
-    getStringInputUntilNewline(vstup, sizeof(vstup));
-    printf("%s", vstup);
-    scanf("%s", vstup);
+
     char restaurantDataFilePath[200] = "I:/Git/restaurant.txt";
     char reviewDataFilePath[200] = "I:/Git/review.txt";
     char menuDataFilePath[200] = "I:/Git/menu.txt";
@@ -39,26 +39,56 @@ int main(char **argc, int argv) {
         printf("---------------BASE MENU--------------\n");
         printf("--------------------------------------\n");
         printf(" 1 - SHOW RESTAURANTS OVERVIEW\n");
-        printf(" 2 - ADD RESTAURANT\n");
-        printf(" 3 - SHOW MENU OVERVIEW\n");
-        printf(" 4 - APP INFO\n");
-        printf(" 5 - SAVE AND EXIT\n");
+        printf(" 2 - SHOW MENU OVERVIEW\n");
+        printf(" 3 - APP INFO\n");
+        printf(" 4 - SAVE AND EXIT\n");
         printf("--------------------------------------\n");
-        printf("- Please choose from menu [1/2/3/4/5]: ");
+        printf("- Please choose from menu [1/2/3/4]: ");
         int choice = getNumericInput(); // input checking function
         switch (choice) {
         case 1:
-            // show restaurants overview
+            while (isRunning) {
+                system("cls");
+                printf("-----------------------------------------\n");
+                printf("---------RESTAURANTS OVERVIEW------------\n");
+                printf("-----------------------------------------\n\n");
+                printTableOfRestaurants(restaurants);
+                printf(" 1 - SELECT RESTAURANT FOR DETAILED VIEW AND MORE OPTIONS\n");
+                printf(" 2 - ADD RESTAURANT\n");
+                printf(" 3 - SORT\n");
+                printf(" 4 - SEARCH\n");
+                printf(" 5 - BACK TO BASE MENU\n");
+                printf("-----------------------------------------\n");
+                printf("- Please choose from menu [1/2/3/4/5]: ");
+                choice = getNumericInput();
+                switch (choice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    isRunning = 0;
+                    break;
+                default:
+                    break;
+                }
+            }
+            isRunning = 1;
             break;
         case 2:
-            // add restaurant function
+            // show menu function
             break;
         case 3:
-            //show menu overview
+            printAppInfo(restaurants, reviews, menus);
+            break;
         case 4:
-            //show app info
-        case 5:
-            isRunning = false;
+            isRunning = 0;
+            break;
+        default:
             break;
         }
     }

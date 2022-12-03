@@ -119,5 +119,37 @@ void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* 
 		index++;
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
+
+void printTableOfRestaurants(RESTAURANT_LIST* resList) {
+	printf("--------------------------------------------------------------------------------------------------------\n");
+	printf("----ID----|------------NAME--------------|------------------ADDRESS---------------|---------TYPE--------\n");
+	printf("--------------------------------------------------------------------------------------------------------\n");
+	if (resList->length == 0)
+		printf("THERE AREN'T ANY RESTAURANTS IN THE DATABASE\n");
+	else {
+		resList->current = resList->head;
+		do {
+			RESTAURANT res;
+			if (getCurrentItemDataRestaurantList(resList, &res) != OK)
+				printf("Failed to retrieve data for this item.\n");
+			else {
+				printf("%u", res.id);
+				unsigned int digits = 0, number = res.id;
+				if (number == 0) number++;
+				while (number > 0) {
+					digits++;
+					number /= 10;
+				}
+				for (int i = 0; i < (11 - digits); i++) printf(" ");
+				printf("%s", res.name);
+				for (int i = 0; i < (sizeof(res.name) - strlen(res.name)); i++) printf(" ");
+				printf("%s", res.address);
+				for (int i = 0; i < (sizeof(res.address) - strlen(res.address)); i++) printf(" ");
+				printf("%s\n", res.type);}
+		} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
+	}
+	printf("--------------------------------------------------------------------------------------------------------\n");
+}
+
 // printAllInfoAboutRestaurant
 // printSpecialInfoCurrentRestaraunt
