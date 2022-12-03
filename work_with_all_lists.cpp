@@ -42,11 +42,11 @@ int saveToFileAllLinkedLists(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* 
         printf("Error while saving restaurant data to file.\n");
         return ERR;
     }
-    if (loadFromFileReviewList(rev, revPath) != OK) {
+    if (saveToFileReviewList(rev, revPath) != OK) {
         printf("Error while saving review data to file.\n");
         return ERR;
     }
-    if (loadFromFileMenuList(menu, menuPath) != OK) {
+    if (saveToFileMenuList(menu, menuPath) != OK) {
         printf("Error while saving menu data to file.\n");
         return ERR;
     }

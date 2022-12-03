@@ -9,10 +9,11 @@ void addMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, unsigned int resId) 
 
 	if (moveCurrentToSearchedIdRestaurantList(resList, resId) == OK) {
 		printf("-ADDING A MEAL FOR RESTAURANT-\n");
+		printf("For information about allowed inputs please check the APP INFO\n");
 		printBaseInfoCurrentRestaurant(resList);
 		printf("Specify the meal name please:\nInput 30 chars max: ");
 		getStringInputUntilNewline(name, sizeof(name));
-		printf("Please write a short description of the meal:\nInput 200 chars max newlines are allowed: ");
+		printf("Please write a short description of the meal\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 		getStringInputUntilEOF(description, sizeof(description));
 		MENU menu = createMenu(id, resId, name, description);
 		printf("-----------------------------------\n");
@@ -37,9 +38,10 @@ void editMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, unsigned int id, un
 			printf("-EDITED REVIEW-\n");
 			printBaseInfoCurrentMenu(menuList);
 			char name[31], description[201];
+			printf("For information about allowed inputs please check the APP INFO\n");
 			printf("Specify the new meal name please:\nInput 30 chars max: ");
 			getStringInputUntilNewline(name, sizeof(name));
-			printf("Please write a short description of the meal:\nInput 200 chars max newlines are allowed: ");
+			printf("Please write a short description of the meal\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 			getStringInputUntilEOF(description, sizeof(description));
 			MENU menu = createMenu(id, resId, name, description);
 			printf("-----------------------------------\n");

@@ -65,6 +65,8 @@ int main(char **argc, int argv) {
                 case 1:
                     break;
                 case 2:
+                    addRestaurant(restaurants);
+                    pressEnterToContinue();
                     break;
                 case 3:
                     break;

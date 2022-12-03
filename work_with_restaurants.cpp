@@ -3,16 +3,18 @@
 void addRestaurant(RESTAURANT_LIST* resList) {
 	unsigned int id = resList->length;
 	char name[31], address[41], type[21], description[201];
+	system("cls");
 	printf("--------------------------------------\n");
 	printf("---------ADDING A RESTAURANT----------\n");
 	printf("--------------------------------------\n");
+	printf("For information about allowed inputs please check the APP INFO\n");
 	printf("Specify the name please:\nInput 30 chars max: ");
 	getStringInputUntilNewline(name, sizeof(name));
 	printf("Specify the address please:\nInput 40 chars max: ");
 	getStringInputUntilNewline(address, sizeof(address));
 	printf("Specify the restaurant type [ceska, .]:\nPlease input 20 chars max: ");
 	getStringInputUntilNewline(type, sizeof(type));
-	printf("Please write a brief description:\nUse 200 chars max, newlines are allowed: ");
+	printf("Please write a brief description\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 	getStringInputUntilEOF(description, sizeof(description));
 	RESTAURANT res = createRestaurant(id, name, address, type, description);
 	printf("--------------------------------------\n");
@@ -32,13 +34,14 @@ void editRestaurant(RESTAURANT_LIST* resList, unsigned int id) {
 		printBaseInfoCurrentRestaurant(resList);
 		unsigned int id = resList->length;
 		char name[31], address[41], type[21], description[201];
+		printf("For information about allowed inputs please check the APP INFO\n");
 		printf("Specify the new name please:\nInput 30 chars max: ");
 		getStringInputUntilNewline(name, sizeof(name));
 		printf("Specify the new address please:\nInput 40 chars max: ");
 		getStringInputUntilNewline(address, sizeof(address));
 		printf("Specify the new restaurant type [ceska, .]:\nPlease input 20 chars max: ");
 		getStringInputUntilNewline(type, sizeof(type));
-		printf("Please write a new brief description:\nUse 200 chars max, newlines are allowed: ");
+		printf("Please write a new brief description\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 		getStringInputUntilEOF(description, sizeof(description));
 		RESTAURANT res = createRestaurant(id, name, address, type, description);
 		printf("--------------------------------------\n");

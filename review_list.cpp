@@ -169,12 +169,14 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
 }
 // Saves the review linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
+    if (list->current == NULL)
+        return OK;
+    
     FILE* output;
     if (fopen_s(&output, outputFilePath, "w") != 0)
         return ERR_SAVE;
 
     list->current = list->head;
-
     do {
         fprintf_s(output, "%u;\n%u;\n%s;\n%u;\n%s;\n", list->current->data.id, list->current->data.res_id, list->current->data.title, list->current->data.score, list->current->data.comment);
     } while (goToNextItemReviewList(list) != ERR_NO_NEXT);

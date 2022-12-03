@@ -11,13 +11,14 @@ void addReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int resI
 	if (moveCurrentToSearchedIdRestaurantList(resList, resId) == OK) {
 		printf("-ADDING REVIEW FOR RESTAURANT-\n");
 		printBaseInfoCurrentRestaurant(resList);
+		printf("For information about allowed inputs please check the APP INFO\n");
 		printf("Specify the review title please:\nInput 30 chars max: ");
 		getStringInputUntilNewline(title, sizeof(title));
 		printf("How would you rate the restaurant?\nInput a whole number [1-10]: ");
 		while (score < 1 or score > 10) {
 			scanf_s("%u", &score);
 		}
-		printf("Please write a short comment:\nInput 200 chars max newlines are allowed: ");
+		printf("Please write a short comment\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 		getStringInputUntilEOF(comment, sizeof(comment));
 		REVIEW rev = createReview(id, resId, title, score, comment);
 		printf("-----------------------------------\n");
@@ -44,13 +45,14 @@ void editReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id,
 			printBaseInfoCurrentReview(revList);
 			unsigned int score = -1;
 			char title[31], comment[201];
+			printf("For information about allowed inputs please check the APP INFO\n");
 			printf("Specify the new review title please:\nInput 30 chars max: ");
 			getStringInputUntilNewline(title, sizeof(title));
 			printf("How would you rate the restaurant?\nInput a whole number [1-10]: ");
 			while (score < 1 or score > 10) {
 				scanf_s("%u", &score);
 			}
-			printf("Please write a short comment:\nInput 200 chars max newlines are allowed: ");
+			printf("Please write a short comment\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 			getStringInputUntilEOF(comment, sizeof(comment));
 			REVIEW rev = createReview(id, resId, title, score, comment);
 			printf("-----------------------------------\n");

@@ -45,16 +45,36 @@ int getNumericInput() {
     return number;
 }
 
+int isCharacterAllowed(char symbol) {
+    if (isdigit(symbol))
+        return 1;
+    if (isalpha(symbol))
+        return 1;
+    char allowedChar[] = "/*-+,.!=%()[]{} ";
+    for (int i = 0; i < strlen(allowedChar); i++) {
+        if (symbol == allowedChar[i])
+            return 1;
+    }
+    if (symbol == '\n')
+        return 1;
+    return 0;
+}
+
 void getStringInputUntilEOF(char* output, unsigned int maxSize) {
     unsigned int index = 0;
     char symbol;
-    while ((symbol = getchar()) != EOF) {
+
+    while (symbol = getchar()) {
+        if (symbol == EOF || symbol == ';')
+            break;
         if (index == maxSize - 2) {
             while (getchar() != EOF);
             break;
         }
-        output[index] = symbol;
-        index++;
+        if (isCharacterAllowed(symbol)) {
+            output[index] = symbol;
+            index++;
+        }   
     }
     output[index] = '\0';
 }
@@ -72,8 +92,10 @@ void getStringInputUntilNewline(char* output, unsigned int maxSize) {
                     break;}
             break;
         }
-        output[index] = symbol;
-        index++;
+        if (isCharacterAllowed(symbol)) {
+            output[index] = symbol;
+            index++;
+        }
     }
     output[index] = '\0';
 }
@@ -109,6 +131,8 @@ void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu) {
     printf("-TOTAL REVIEWS- %u\n-REVIEWS IN MEMORY- %zd B\n", rev->length, (rev->length * sizeof(REVIEW_ITEM) + sizeof(REVIEW_LIST)));
     printf("---------------------------------\n");
     printf("-TOTAL MEALS- %u\n-MEALS IN MEMORY- %zd B\n", menu->length, (menu->length * sizeof(MENU_ITEM) + sizeof(MENU_LIST)));
+    printf("---------------------------------\n");
+    printf("Allowed inputs are letters, digits, /*-+,.!=%()[]{}space and sometimes new lines.\nAll other inputs are ignored.\n");
     printf("---------------------------------\n");
     pressEnterToContinue();
 }
