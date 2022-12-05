@@ -3,6 +3,7 @@
 
 void printInfoExpectedFiles(char* resPath, char* revPath, char* menuPath) {
     printf("The application expected to find DB files at this location:\n  %s\n  %s\n  %s\nPlease check the files are there and create them mannualy.\n", resPath, revPath, menuPath);
+    printf("If the locations of the files are specified only by their respective names, then it means that these should be in the folder with the executable.\n");
     printf("You can also force the app to try to recreate empty files by running the app with argument '--forceEmptyDBCreation'.\n");
 }
 
@@ -30,7 +31,8 @@ void pressEnterToContinue() {
     printf("Press enter to continue: ");
     char symbol = 0;
     while (symbol != '\r' && symbol != '\n') {
-        symbol = getchar();}
+        symbol = getchar();
+    }
 }
 
 void consumeInput() {
@@ -68,13 +70,20 @@ void getStringInputUntilEOF(char* output, unsigned int maxSize) {
         if (symbol == EOF || symbol == ';')
             break;
         if (index == maxSize - 2) {
-            while (getchar() != EOF);
+            while (symbol = getchar()) {
+                if (symbol == EOF || symbol == '\0' || symbol == ';')
+                    break;
+            }
             break;
         }
         if (isCharacterAllowed(symbol)) {
             output[index] = symbol;
             index++;
         }   
+    }
+    while (symbol = getchar()) {
+        if (symbol == '\n' || symbol == ';' || symbol == '\0' || symbol == EOF)
+            break;
     }
     output[index] = '\0';
 }
@@ -102,9 +111,12 @@ void getStringInputUntilNewline(char* output, unsigned int maxSize) {
 
 int acceptOperation() {
     printf("Do you want to continue or abort? [y/any]: ");
-    char symbol;
+    char symbol, other;
     scanf_s("%c", &symbol, (unsigned int)sizeof(symbol));
-    while (getchar() != EOF);
+    while (other = getchar()) {
+        if (other == EOF || other == '\n' || other == '\0')
+            break;
+    }
     switch (tolower(symbol)) {
     case 'y':
         printf("Operation confirmed.\n");

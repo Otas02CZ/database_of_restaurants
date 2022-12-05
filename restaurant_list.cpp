@@ -169,13 +169,15 @@ int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath) {
 }
 // Saves the restaurant linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileRestaurantList(RESTAURANT_LIST* list, char *outputFilePath) {
-    if (list->current == NULL)
-        return OK;
-
     FILE* output;
     if (fopen_s(&output, outputFilePath, "w") != 0)
         return ERR_SAVE;
 
+    if (list->current == NULL) {
+        fclose(output);
+        return OK;
+    }
+        
     list->current = list->head;
     do {
         fprintf_s(output, "%u;\n%s;\n%s;\n%s;\n%s;\n", list->current->data.id, list->current->data.name, list->current->data.address, list->current->data.type, list->current->data.description);

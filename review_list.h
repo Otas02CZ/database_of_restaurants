@@ -7,7 +7,7 @@ typedef struct REVIEW {
     unsigned int        res_id;
     char                title[31];
     unsigned int        score;
-    char                comment[201];
+    char                comment[401];
 }REVIEW;
 
 typedef struct REVIEW_ITEM REVIEW_ITEM;

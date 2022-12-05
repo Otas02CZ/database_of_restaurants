@@ -14,7 +14,7 @@ void addRestaurant(RESTAURANT_LIST* resList) {
 	getStringInputUntilNewline(address, sizeof(address));
 	printf("Specify the restaurant type [ceska, .]:\nPlease input 20 chars max: ");
 	getStringInputUntilNewline(type, sizeof(type));
-	printf("Please write a brief description\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
+	printf("Please write a brief description\nInput 400 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 	getStringInputUntilEOF(description, sizeof(description));
 	RESTAURANT res = createRestaurant(id, name, address, type, description);
 	printf("--------------------------------------\n");
@@ -24,15 +24,15 @@ void addRestaurant(RESTAURANT_LIST* resList) {
 		printf("Error while adding the restaurant to the database.\n");
 }
 
-void editRestaurant(RESTAURANT_LIST* resList, unsigned int id) {
+void editRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int id) {
+	system("cls");
 	printf("---------------------------------------\n");
 	printf("---------EDITING A RESTAURANT----------\n");
 	printf("---------------------------------------\n");
-	
+	printf("running");
 	if (moveCurrentToSearchedIdRestaurantList(resList, id) == OK) {
 		printf("-EDITED RESTAURANT-\n");
-		printBaseInfoCurrentRestaurant(resList);
-		unsigned int id = resList->length;
+		printBaseInfoCurrentRestaurant(resList, revList);
 		char name[31], address[41], type[21], description[201];
 		printf("For information about allowed inputs please check the APP INFO\n");
 		printf("Specify the new name please:\nInput 30 chars max: ");
@@ -41,41 +41,48 @@ void editRestaurant(RESTAURANT_LIST* resList, unsigned int id) {
 		getStringInputUntilNewline(address, sizeof(address));
 		printf("Specify the new restaurant type [ceska, .]:\nPlease input 20 chars max: ");
 		getStringInputUntilNewline(type, sizeof(type));
-		printf("Please write a new brief description\nInput 200 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
+		printf("Please write a new brief description\nInput 400 chars max newlines are allowed\nTo end your input type ; or ctrl-Z on a new line:\n");
 		getStringInputUntilEOF(description, sizeof(description));
 		RESTAURANT res = createRestaurant(id, name, address, type, description);
 		printf("--------------------------------------\n");
 		if (editCurrentItemRestaurantList(resList, res) == OK) {
 			printf("Restaurant successfully edited.\n");
 			printf("-RESULT-\n");
-			printBaseInfoCurrentRestaurant(resList);}
+			printBaseInfoCurrentRestaurant(resList, revList);}
 		else {
 			printf("Error while editing the specified restaurant.\n");}
 	}
 	else {
 		printf("The restaurant selected can not be found.\n");}
+	pressEnterToContinue();
 }
 
-void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList) {
+void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
 	RESTAURANT res;
 	if (getCurrentItemDataRestaurantList(resList, &res) == OK) {
-		printf("----------------------------------\n");
-		printf("NAME - %s\nADDRESS - %s\nTYPE - %s\nDESCRIPTION -\n%s\n", res.name, res.address, res.type, res.description);
-		printf("----------------------------------\n");}
+		printf("-----------------------------------------\n");
+		printf("- NAME:       %s\n- ADDRESS:    %s\n- TYPE:       %s\n", res.name, res.address, res.type);
+		float score = getOverallScoreForRestaurant(revList, res.id);
+		if (score == -1)
+			printf("- RATING:  NONE\n");
+		else
+			printf("- RATING:     %g/10\n", score);
+		printf("- DESCRIPTION:\n%s\n", res.description);
+		printf("-----------------------------------------\n");}
 	else {
 		printf("Error while printing specified restaurant base info.\n");}
 }
 
 void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
+	system("cls");
 	printf("-----------------------------------------\n");
 	printf("----------DELETING A RESTAURANT----------\n");
 	printf("-----------------------------------------\n");
 	if (moveCurrentToSearchedIdRestaurantList(resList, id) == OK) {
 		printf("-RESTAURANT TO BE DELETED-\n");
-		printBaseInfoCurrentRestaurant(resList);
+		printBaseInfoCurrentRestaurant(resList, revList);
 		printf("This restaurant and all information associated with it\nacross all the DBs (menus/reviews) will be deleted.\n");
 		if (acceptOperation()) {
-			printf("Deleting.\n");
 			removeCurrentItemRestaurantList(resList); // CHECK WORKING
 			removeAllItemsWithResIdReviewList(revList, id); // CHECK WORKING
 			removeAllItemsWithResIdMenuList(menuList, id); // CHECK WORKING
@@ -83,6 +90,7 @@ void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST*
 			fixIdSequenceReviewList(revList); // CHECK WORKING
 			fixRestaurantIdSequenceFixEveryLink(resList, revList, menuList); // CHECK WORKING
 		}
+		pressEnterToContinue();
 	}
 	else {
 		printf("The specified restaurant can not be found.\n");}
@@ -123,10 +131,10 @@ void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* 
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
 
-void printTableOfRestaurants(RESTAURANT_LIST* resList) {
-	printf("--------------------------------------------------------------------------------------------------------\n");
-	printf("----ID----|------------NAME--------------|------------------ADDRESS---------------|---------TYPE--------\n");
-	printf("--------------------------------------------------------------------------------------------------------\n");
+void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
+	printf("------------------------------------------------------------------------------------------------------------------\n");
+	printf("----ID----|------------NAME--------------|------------------ADDRESS---------------|---------TYPE-------|--RATING--\n");
+	printf("------------------------------------------------------------------------------------------------------------------\n");
 	if (resList->length == 0)
 		printf("THERE AREN'T ANY RESTAURANTS IN THE DATABASE\n");
 	else {
@@ -143,16 +151,90 @@ void printTableOfRestaurants(RESTAURANT_LIST* resList) {
 					digits++;
 					number /= 10;
 				}
-				for (int i = 0; i < (11 - digits); i++) printf(" ");
+				float score = getOverallScoreForRestaurant(revList, res.id);
+				for (int i = 0; i < (11 - (int)(digits)); i++) printf(" ");
 				printf("%s", res.name);
 				for (int i = 0; i < (sizeof(res.name) - strlen(res.name)); i++) printf(" ");
 				printf("%s", res.address);
 				for (int i = 0; i < (sizeof(res.address) - strlen(res.address)); i++) printf(" ");
-				printf("%s\n", res.type);}
+				printf("%s", res.type);
+				for (int i = 0; i < (sizeof(res.type) - strlen(res.type)); i++) printf(" ");
+				if (score == -1)
+					printf("NONE\n");
+				else
+					printf("%g/10\n", score);
+			}
 		} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 	}
-	printf("--------------------------------------------------------------------------------------------------------\n");
+	printf("------------------------------------------------------------------------------------------------------------------\n");
 }
 
-// printAllInfoAboutRestaurant
-// printSpecialInfoCurrentRestaraunt
+void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
+	RESTAURANT res;
+	if (getCurrentItemDataRestaurantList(resList, &res) == OK) {
+		unsigned int totalReviews = 0, totalMeals = 0;
+		printf("=========================================\n");
+		printf("-RESTAURANT REVIEWS\n");
+		if (revList->current != NULL) {
+			revList->current = revList->head;
+			do {
+				if (revList->current->data.res_id == id) {
+					printBaseInfoCurrentReview(revList);
+					totalReviews++;
+				}
+			} while (goToNextItemReviewList(revList) != ERR_NO_NEXT);
+			if (totalReviews > 0) {
+				printf("There is a total of %u reviews.\n", totalReviews);
+			}
+			else {
+				printf("There are no reviews for this restaurant.\n");
+			}
+		}
+		else {
+			printf("There are no reviews for this restaurant.\n");
+		}
+		
+		printf("=========================================\n");
+		printf("\n=========================================\n");
+		printf("-RESTAURANT MENU\n");
+		if (menuList->current != NULL) {
+			menuList->current = menuList->head;
+			do {
+				if (menuList->current->data.res_id == id) {
+					printBaseInfoCurrentMenu(menuList);
+					totalMeals++;
+				}
+			} while (goToNextItemMenuList(menuList) != ERR_NO_NEXT);
+			if (totalMeals > 0) {
+				printf("There is a total of %u meals in this menu.\n", totalMeals);
+			}
+			else {
+				printf("There is no menu for this restaurant.\n");
+			}
+		}
+		else {
+			printf("There is no menu for this restaurant.\n");
+		}
+		
+		printf("=========================================\n");
+
+	}
+	else {
+		printf("Error while printing specified restaurant extended info.\n");}
+}
+
+void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
+	system("cls");
+	printf("-----------------------------------------\n");
+	printf("------RESTAURANT DETAILED OVERVIEW-------\n");
+
+	if (moveCurrentToSearchedIdRestaurantList(resList, id) == OK) {
+		printBaseInfoCurrentRestaurant(resList, revList);
+		printSpecialInfoCurrentRestaurant(resList, revList, menuList, id);
+	}
+	else {
+		printf("Restaurant specified can not be found.\n");
+	}
+}
+
+//

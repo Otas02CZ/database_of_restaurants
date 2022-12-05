@@ -6,7 +6,7 @@ typedef struct MENU {
     unsigned int        id;
     unsigned int        res_id;
     char                name[31];
-    char                description[201];
+    char                description[401];
 }MENU;
 
 typedef struct MENU_ITEM MENU_ITEM;

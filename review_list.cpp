@@ -144,23 +144,29 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
 
     while (1) {
         if (fscanf(input, "%u;\n", &rev.id) != 1) {
+            printf("1");
             break;
         }
         if (fscanf(input, "%u;\n", &rev.res_id) != 1) {
             fclose(input);
+            printf("2");
             return ERR_LOAD;}
         if ((readStringFromFileReview(input, rev.title, sizeof(rev.title)) == ERR_LOAD)) {
             fclose(input);
+            printf("3");
             return ERR_LOAD;}
         if (fscanf_s(input, "%u;\n", &rev.score) != 1) {
             fclose(input);
+            printf("4");
             return ERR_LOAD;}
-        if ((readStringFromFileReview(input, rev.comment, sizeof(rev.title)) == ERR_LOAD)) {
+        if ((readStringFromFileReview(input, rev.comment, sizeof(rev.comment)) == ERR_LOAD)) {
             fclose(input);
+            printf("5");
             return ERR_LOAD;}
         printf("%u %u %s %u %s\n", rev.id, rev.res_id, rev.title, rev.score, rev.comment);
         if (addItemToEndReviewList(list, rev) == ERR_ALLOC) {
             fclose(input);
+            printf("6");
             return ERR_ALLOC;
         }
     }
@@ -169,12 +175,14 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
 }
 // Saves the review linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
-    if (list->current == NULL)
-        return OK;
-    
     FILE* output;
     if (fopen_s(&output, outputFilePath, "w") != 0)
         return ERR_SAVE;
+
+    if (list->current == NULL) {
+        fclose(output);
+        return OK;
+    }
 
     list->current = list->head;
     do {

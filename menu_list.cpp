@@ -169,12 +169,14 @@ int loadFromFileMenuList(MENU_LIST* list, char* inputFilePath) {
 }
 // Saves the menu linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileMenuList(MENU_LIST* list, char* outputFilePath) {
-    if (list->current == NULL)
-        return OK;
-
     FILE* output;
     if (fopen_s(&output, outputFilePath, "w") != 0)
         return ERR_SAVE;
+
+    if (list->current == NULL) {
+        fclose(output);
+        return OK;
+    }
 
     list->current = list->head;
     do {

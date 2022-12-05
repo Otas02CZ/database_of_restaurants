@@ -7,7 +7,7 @@ typedef struct RESTAURANT {
     char                name[31];
     char                address[41];
     char                type[21];
-    char                description[201];
+    char                description[401];
 }RESTAURANT;
 
 typedef struct RESTAURANT_ITEM RESTAURANT_ITEM;

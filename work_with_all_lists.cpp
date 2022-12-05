@@ -25,7 +25,7 @@ int loadFromFileAllLinkedLists(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST
         return ERR;
     }
     if (loadFromFileReviewList(rev, revPath) != OK) {
-        printf("Error while loading data from Menu DB, app is closing.\n");
+        printf("Error while loading data from Review DB, app is closing.\n");
         eraseAllLinkedLists(res, rev, menu);
         return ERR;
     }

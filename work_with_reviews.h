@@ -12,3 +12,6 @@ void addReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int resI
 void editReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id, unsigned int resId);
 void removeReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id, unsigned int resId);
 void printBaseInfoCurrentReview(REVIEW_LIST* revList);
+float getOverallScoreForRestaurant(REVIEW_LIST* revList, unsigned int resId);
+unsigned int printTableOfAllReviewsOfSpecifiedRestaurant(REVIEW_LIST* revList, unsigned int resId);
+unsigned int isSpecifiedReviewUnderSpecifiedRestaurant(REVIEW_LIST* revList, unsigned int id, unsigned int resId);
