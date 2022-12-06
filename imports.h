@@ -14,5 +14,8 @@ enum {
     ERR_LOAD = 3,
     ERR_SAVE = 4,
     ERR_NOT_FOUND = 5,
-    ERR_NO_NEXT = 6
+    ERR_NO_NEXT = 6,
+    ID = 7,
+    NAME = 8,
+    RATING = 9
 };

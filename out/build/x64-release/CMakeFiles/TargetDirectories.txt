@@ -1,3 +1,3 @@
-I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/database_of_restaurants.dir
-I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/edit_cache.dir
-I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/rebuild_cache.dir
+C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/database_of_restaurants.dir
+C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/edit_cache.dir
+C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/rebuild_cache.dir

@@ -1,5 +1,7 @@
 #include "work_with_restaurants.h"
 
+
+// gets input from the user and adds restaurant at the end of the list
 void addRestaurant(RESTAURANT_LIST* resList) {
 	unsigned int id = resList->length;
 	char name[31], address[41], type[21], description[201];
@@ -24,6 +26,7 @@ void addRestaurant(RESTAURANT_LIST* resList) {
 		printf("Error while adding the restaurant to the database.\n");
 }
 
+// gets input from the user and edits the given restaurant
 void editRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int id) {
 	system("cls");
 	printf("---------------------------------------\n");
@@ -57,6 +60,7 @@ void editRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int
 	pressEnterToContinue();
 }
 
+// prints base information about restaurant at the current index of restaurant list
 void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
 	RESTAURANT res;
 	if (getCurrentItemDataRestaurantList(resList, &res) == OK) {
@@ -64,7 +68,7 @@ void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revLi
 		printf("- NAME:       %s\n- ADDRESS:    %s\n- TYPE:       %s\n", res.name, res.address, res.type);
 		float score = getOverallScoreForRestaurant(revList, res.id);
 		if (score == -1)
-			printf("- RATING:  NONE\n");
+			printf("- RATING:     NONE\n");
 		else
 			printf("- RATING:     %g/10\n", score);
 		printf("- DESCRIPTION:\n%s\n", res.description);
@@ -73,7 +77,8 @@ void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revLi
 		printf("Error while printing specified restaurant base info.\n");}
 }
 
-void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
+// removes restaurant by its id
+int removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
 	system("cls");
 	printf("-----------------------------------------\n");
 	printf("----------DELETING A RESTAURANT----------\n");
@@ -82,7 +87,8 @@ void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST*
 		printf("-RESTAURANT TO BE DELETED-\n");
 		printBaseInfoCurrentRestaurant(resList, revList);
 		printf("This restaurant and all information associated with it\nacross all the DBs (menus/reviews) will be deleted.\n");
-		if (acceptOperation()) {
+		int status;
+		if (status = acceptOperation()) {
 			removeCurrentItemRestaurantList(resList); // CHECK WORKING
 			removeAllItemsWithResIdReviewList(revList, id); // CHECK WORKING
 			removeAllItemsWithResIdMenuList(menuList, id); // CHECK WORKING
@@ -91,12 +97,14 @@ void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST*
 			fixRestaurantIdSequenceFixEveryLink(resList, revList, menuList); // CHECK WORKING
 		}
 		pressEnterToContinue();
+		return status;
 	}
 	else {
-		printf("The specified restaurant can not be found.\n");}
-	
+		printf("The specified restaurant can not be found.\n");
+		return 1;
+	}
 }
-// CHECK WORKING
+// fixes the ids of the restaurants in db and the links to the restaurant db from review and menu list
 void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList) {
 	if (resList->length == 0)
 		return;
@@ -131,6 +139,7 @@ void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* 
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
 
+// prints the database of restaurants as a table
 void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
 	printf("------------------------------------------------------------------------------------------------------------------\n");
 	printf("----ID----|------------NAME--------------|------------------ADDRESS---------------|---------TYPE-------|--RATING--\n");
@@ -169,6 +178,7 @@ void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
 	printf("------------------------------------------------------------------------------------------------------------------\n");
 }
 
+// prints info about meals and reviews of the current restaurant
 void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
 	RESTAURANT res;
 	if (getCurrentItemDataRestaurantList(resList, &res) == OK) {
@@ -194,7 +204,7 @@ void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* re
 			printf("There are no reviews for this restaurant.\n");
 		}
 		
-		printf("=========================================\n");
+		printf("=========================================");
 		printf("\n=========================================\n");
 		printf("-RESTAURANT MENU\n");
 		if (menuList->current != NULL) {
@@ -223,6 +233,7 @@ void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* re
 		printf("Error while printing specified restaurant extended info.\n");}
 }
 
+// prints both base and special info about current restaurant
 void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id) {
 	system("cls");
 	printf("-----------------------------------------\n");
@@ -236,5 +247,3 @@ void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList,
 		printf("Restaurant specified can not be found.\n");
 	}
 }
-
-//

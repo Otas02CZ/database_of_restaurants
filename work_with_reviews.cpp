@@ -1,5 +1,7 @@
 #include "work_with_reviews.h"
 
+
+
 void addReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int resId) {
 	unsigned int id = revList->length;
 	unsigned int score = -1;

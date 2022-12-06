@@ -12,7 +12,7 @@
 void addRestaurant(RESTAURANT_LIST* resList);
 void editRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int id);
 void printBaseInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList);
-void removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id);
+int removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id);
 void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList);
 void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList);
 void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id);

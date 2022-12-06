@@ -37,6 +37,7 @@ int main(int argv, char* argc[]) {
     // TODO MENU
     unsigned int isRunning = 1, isAsking = 1, isReviewOfCurrentRestaurant = 0, isMenuOfCurrentRestaurant = 0; // declaring here because of the switch-case problem
     int revId, resId, menuId;
+    int sortMethod = ID;
     while (isRunning) {
         system("cls");
         printf("--------------------------------------\n");
@@ -109,8 +110,8 @@ int main(int argv, char* argc[]) {
                                     editRestaurant(restaurants, reviews, (unsigned int)resId);
                                     break;
                                 case 2: // remove restaurant
-                                    removeRestaurant(restaurants, reviews, menus, resId);
-                                    isRunning = 0;
+                                    if (removeRestaurant(restaurants, reviews, menus, resId))
+                                        isRunning = 0;
                                     break;
                                 case 3: // add review
                                     addReview(reviews, restaurants, resId);
@@ -121,10 +122,12 @@ int main(int argv, char* argc[]) {
                                     printf("------------REVIEW LIST--------------\n");
                                     printf("-----------------------------------------\n\n");
                                     if (printTableOfAllReviewsOfSpecifiedRestaurant(reviews, resId) == 0) {
-                                        printf("There are no reviews for this restaurant.\n");
+                                        //printf("There are no reviews for this restaurant.\n");
+                                        printf("-----------------------------------------\n");
                                         pressEnterToContinue();
                                         break;
                                     }
+                                    printf("-----------------------------------------\n");
                                     printf("In order to edit a review, please select it from the list, by its id.\nOr input -1 to exit this input sequence: ");
                                     revId = -2;
                                     isReviewOfCurrentRestaurant = 0;
@@ -147,10 +150,12 @@ int main(int argv, char* argc[]) {
                                     printf("------------REVIEW LIST--------------\n");
                                     printf("-----------------------------------------\n\n");
                                     if (printTableOfAllReviewsOfSpecifiedRestaurant(reviews, resId) == 0) {
-                                        printf("There are no reviews for this restaurant.\n");
+                                        //printf("There are no reviews for this restaurant.\n");
+                                        printf("-----------------------------------------\n");
                                         pressEnterToContinue();
                                         break;
                                     }
+                                    printf("-----------------------------------------\n");
                                     printf("In order to remove a review, please select it from the list, by its id.\nOr input -1 to exit this input sequence: ");
                                     revId = -2;
                                     isReviewOfCurrentRestaurant = 0;
@@ -176,10 +181,12 @@ int main(int argv, char* argc[]) {
                                     printf("------------MEAL LIST--------------\n");
                                     printf("-----------------------------------------\n\n");
                                     if (printTableOfAllMenusOfSpecifiedRestaurant(menus, resId) == 0) {
-                                        printf("There is no menu for this restaurant.\n");
+                                        //printf("There is no menu for this restaurant.\n");
+                                        printf("-----------------------------------------\n");
                                         pressEnterToContinue();
                                         break;
                                     }
+                                    printf("-----------------------------------------\n");
                                     printf("In order to edit a meal, please select it from the list, by its id.\nOr input -1 to exit this input sequence: ");
                                     menuId = -2;
                                     isMenuOfCurrentRestaurant = 0;
@@ -203,10 +210,12 @@ int main(int argv, char* argc[]) {
                                     printf("------------MEAL LIST--------------\n");
                                     printf("-----------------------------------------\n\n");
                                     if (printTableOfAllMenusOfSpecifiedRestaurant(menus, resId) == 0) {
-                                        printf("There is no menu for this restaurant.\n");
+                                        //printf("There is no menu for this restaurant.\n");
+                                        printf("-----------------------------------------\n");
                                         pressEnterToContinue();
                                         break;
                                     }
+                                    printf("-----------------------------------------\n");
                                     printf("In order to remove a meal, please select it from the list, by its id.\nOr input -1 to exit this input sequence: ");
                                     menuId = -2;
                                     isMenuOfCurrentRestaurant = 0;
@@ -238,7 +247,7 @@ int main(int argv, char* argc[]) {
                     pressEnterToContinue();
                     break;
                 case 3:
-                    // sort by given key
+                    // sort by given key - name, rating
                     // when adding or removing res - sort back to sorting by id
                     // 
                     // after that sort it again

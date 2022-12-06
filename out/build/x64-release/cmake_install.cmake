@@ -1,8 +1,8 @@
-# Install script for directory: I:/Git/database_of_restaurants
+# Install script for directory: C:/GitHub/database_of_restaurants
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "I:/Git/database_of_restaurants/out/install/x64-release")
+  set(CMAKE_INSTALL_PREFIX "C:/GitHub/database_of_restaurants/out/install/x64-release")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "I:/Git/database_of_restaurants/out/build/x64-release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/GitHub/database_of_restaurants/out/build/x64-release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

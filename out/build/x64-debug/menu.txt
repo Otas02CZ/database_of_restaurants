@@ -1,0 +1,5 @@
+0;
+0;
+MENU R1;
+Svickova na smetane
+maso, svicky a knedlik + smetana;
