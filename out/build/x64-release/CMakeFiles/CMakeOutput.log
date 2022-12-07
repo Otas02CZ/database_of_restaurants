@@ -1,16 +1,16 @@
-The system is: Windows - 10.0.22621 - AMD64
+The system is: Windows - 10.0.22623 - AMD64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
 Build flags: 
 Id flags:  
 
 The output was:
 0
-Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31933 for x64
+Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31935 for x64
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 CMakeCCompilerId.c
-Microsoft (R) Incremental Linker Version 14.34.31933.0
+Microsoft (R) Incremental Linker Version 14.34.31935.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:CMakeCCompilerId.exe 
@@ -21,20 +21,20 @@ Compilation of the C compiler identification source "CMakeCCompilerId.c" produce
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
 
-The C compiler identification is MSVC, found in "C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/3.24.202208181-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
+The C compiler identification is MSVC, found in "I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/3.24.202208181-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
 Build flags: 
 Id flags:  
 
 The output was:
 0
-Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31933 for x64
+Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31935 for x64
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 CMakeCXXCompilerId.cpp
-Microsoft (R) Incremental Linker Version 14.34.31933.0
+Microsoft (R) Incremental Linker Version 14.34.31935.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:CMakeCXXCompilerId.exe 
@@ -45,21 +45,21 @@ Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" p
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
 
-The CXX compiler identification is MSVC, found in "C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/3.24.202208181-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
+The CXX compiler identification is MSVC, found in "I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/3.24.202208181-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/CMakeTmp
+Change Dir: I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_30c8f && [1/2] Building C object CMakeFiles\cmTC_30c8f.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_30c8f.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_6f96b && [1/2] Building C object CMakeFiles\cmTC_6f96b.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_6f96b.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: C:/GitHub/database_of_restaurants/out/build/x64-release/CMakeFiles/CMakeTmp
+Change Dir: I:/Git/database_of_restaurants/out/build/x64-release/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_441d7 && [1/2] Building CXX object CMakeFiles\cmTC_441d7.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_441d7.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_1a1b7 && [1/2] Building CXX object CMakeFiles\cmTC_1a1b7.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_1a1b7.exe
 
 
 

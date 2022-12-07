@@ -1,32 +1,44 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "functions.h"
 
-
+// prints info about expected files with dbs, called when problems with db loading are present
 void printInfoExpectedFiles(char* resPath, char* revPath, char* menuPath) {
     printf("The application expected to find DB files at this location:\n  %s\n  %s\n  %s\nPlease check the files are there and create them mannualy.\n", resPath, revPath, menuPath);
     printf("If the locations of the files are specified only by their respective names, then it means that these should be in the folder with the executable.\n");
     printf("You can also force the app to try to recreate empty files by running the app with argument '--forceEmptyDBCreation'.\n");
 }
 
+// forces empty db creation - all db files are recreated as empty files
+int forceEmptyDBCreation(char* resPath, char* revPath, char* menuPath) {
+    FILE* creator;
+    if (fopen_s(&creator, resPath, "w") != 0)
+        return ERR;
+    fclose(creator);
+    if (fopen_s(&creator, revPath, "w") != 0)
+        return ERR;
+    fclose(creator);
+    if (fopen_s(&creator, menuPath, "w") != 0)
+        return ERR;
+    fclose(creator);
+    printf("Empty DBs for all the data types were successfully recreated.\n");
+    pressEnterToContinue();
+    return OK;
+}
+
+// check whether to recreate the db files as empty files, based on given arguments from command line
 int checkForceEmpyDBCreation(char** argc, int argv, char* resPath, char* revPath, char* menuPath) {
     if (argv == 2) {
         if (strcmp(argc[1], "--forceEmptyDBCreation") == 0) {
-            FILE* creator;
-            if (fopen_s(&creator, resPath, "w") != 0)
-                return ERR;
-            fclose(creator);
-            if (fopen_s(&creator, revPath, "w") != 0)
-                return ERR;
-            fclose(creator);
-            if (fopen_s(&creator, menuPath, "w") != 0)
-                return ERR;
-            fclose(creator);
-            printf("Empty DBs for all the data types were successfully recreated.\n");
-            pressEnterToContinue();
+            return forceEmptyDBCreation(resPath, revPath, menuPath);
         }
     }
     return OK;
 }
 
+// wait until user presses enter
 void pressEnterToContinue() {
     printf("Press enter to continue: ");
     char symbol = 0;
@@ -35,10 +47,17 @@ void pressEnterToContinue() {
     }
 }
 
+// consumes remaining input, used only once, in most of the cases, the functions handle excesive input on their own
 void consumeInput() {
-    while (getchar() != '\n');
+    char symbol;
+    while (symbol = getchar()) {
+        if (symbol == EOF || symbol == '\0' || symbol == '\n')
+            break;
+    }
 }
 
+
+// waits for numeric input, as long as the user inputs something else than an integer
 int getNumericInput() {
     int number;
     while (scanf_s("%d", &number) != 1)
@@ -47,12 +66,13 @@ int getNumericInput() {
     return number;
 }
 
+// checks whether a given character is on the allowed chars list -> input checking
 int isCharacterAllowed(char symbol) {
     if (isdigit(symbol))
         return 1;
     if (isalpha(symbol))
         return 1;
-    char allowedChar[] = "/*-+,.!=%()[]{} ";
+    char allowedChar[] = "/*-+,.!=%()[]{}<>: ";
     for (int i = 0; i < strlen(allowedChar); i++) {
         if (symbol == allowedChar[i])
             return 1;
@@ -62,6 +82,7 @@ int isCharacterAllowed(char symbol) {
     return 0;
 }
 
+// function to read users input until ; or EOF is given
 void getStringInputUntilEOF(char* output, unsigned int maxSize) {
     unsigned int index = 0;
     char symbol;
@@ -88,6 +109,7 @@ void getStringInputUntilEOF(char* output, unsigned int maxSize) {
     output[index] = '\0';
 }
 
+// function to read users input until \n is given
 void getStringInputUntilNewline(char* output, unsigned int maxSize) {
     unsigned int index = 0;
     char symbol;
@@ -109,6 +131,7 @@ void getStringInputUntilNewline(char* output, unsigned int maxSize) {
     output[index] = '\0';
 }
 
+// function which waits for the users approval or disapproval of a previous operation
 int acceptOperation() {
     printf("Do you want to continue or abort? [y/any]: ");
     char symbol, other;
@@ -127,6 +150,7 @@ int acceptOperation() {
     }
 }
 
+// prints basic app info
 void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu) {
     system("cls");
     printf("--------------------------------\n");
@@ -144,12 +168,28 @@ void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu) {
     printf("---------------------------------\n");
     printf("-TOTAL MEALS- %u\n-MEALS IN MEMORY- %zd B\n", menu->length, (menu->length * sizeof(MENU_ITEM) + sizeof(MENU_LIST)));
     printf("---------------------------------\n");
-    printf("Allowed inputs are letters, digits, /*-+,.!=%()[]{}space and sometimes new lines.\nAll other inputs are ignored.\n");
+    printf("Allowed inputs are letters, digits, /*-+,.!=%%()[]{}:<>space and sometimes new lines.\nAll other inputs are ignored.\n");
     printf("---------------------------------\n");
     pressEnterToContinue();
 }
 
+// converts string to lower case
 void convertStringToLowerCase(char* text) {
     for (unsigned int i = 0; i < strlen(text); i++)
         text[i] = tolower(text[i]);
+}
+
+// prints a text representation of the current sort method
+void printLineAboutCurrentSortMethod(unsigned int sortMethod) {
+    switch (sortMethod) {
+    case ID:
+        printf("Currently sorting by restaurant ID.\n");
+        break;
+    case NAME:
+        printf("Currently sorting by restaurant NAME.\n");
+        break;
+    case RATING:
+        printf("Currently sorting by restaurant RATING.\n");
+        break;
+    }
 }

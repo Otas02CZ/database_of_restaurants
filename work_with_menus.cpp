@@ -1,5 +1,11 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "work_with_menus.h"
 
+
+// Code to get users inputs for adding a new meal and add it to the linked list at the end of it
 void addMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int resId) {
 	unsigned int id = menuList->length;
 	char name[31], description[201];
@@ -27,6 +33,7 @@ void addMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revList
 		printf("The associated restauant for the meal can not be found.\n");}
 }
 
+// Code to get users input and edit specified meal
 void editMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int id, unsigned int resId) {
 	system("cls");
 	printf("---------------------------------------\n");
@@ -59,6 +66,7 @@ void editMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revLis
 		printf("The restaraunt associated with the meal can not be found.\n");}
 }
 
+// Code to remove the specified meal from the linked list, check users approval
 void removeMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int id, unsigned int resId) {
 	system("cls");
 	printf("-----------------------------------------\n");
@@ -74,8 +82,8 @@ void removeMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revL
 			printf("This meal will be deleted.\n");
 			if (acceptOperation()) {
 				printf("Deleting.\n");
-				removeCurrentItemMenuList(menuList); // CHECK WORKING
-				fixIdSequenceMenuList(menuList); // CHECK WORKING
+				removeCurrentItemMenuList(menuList);
+				fixIdSequenceMenuList(menuList);
 			}
 		}
 		else {
@@ -87,6 +95,7 @@ void removeMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revL
 	}
 }
 
+// Prints base information about the menu item at the current location of the linked list current pointer
 void printBaseInfoCurrentMenu(MENU_LIST* menuList) {
 	MENU menu;
 	if (getCurrentItemDataMenuList(menuList, &menu) == OK) {
@@ -99,6 +108,7 @@ void printBaseInfoCurrentMenu(MENU_LIST* menuList) {
 	}
 }
 
+// Print a table of all menus that are linked to given restaurant
 unsigned int printTableOfAllMenusOfSpecifiedRestaurant(MENU_LIST* menuList, unsigned int resId) {
 	printf("----------------------------------------\n");
 	printf("----ID----|------------NAME-------------\n");
@@ -134,6 +144,7 @@ unsigned int printTableOfAllMenusOfSpecifiedRestaurant(MENU_LIST* menuList, unsi
 	return totalMenus;
 }
 
+// Checks whether specified menu is linked to a given restaurant
 unsigned int isSpecifiedMenuUnderSpecifiedRestaurant(MENU_LIST* menuList, unsigned int id, unsigned int resId) {
 	if (menuList->length == 0) {
 		return 0;
@@ -150,3 +161,4 @@ unsigned int isSpecifiedMenuUnderSpecifiedRestaurant(MENU_LIST* menuList, unsign
 	}
 	return 0;
 }
+

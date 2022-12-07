@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "restaurant_list.h"
 
 
@@ -22,6 +26,7 @@ RESTAURANT_LIST* createRestaurantList() {
     list->length = 0;
     return list;
 }
+
 // Completely erases and deallocates the restaurant linked list, with all its nodes, deallocates the list root as well
 void eraseRestaurantList(RESTAURANT_LIST* list) {
     if (list == NULL)
@@ -31,6 +36,7 @@ void eraseRestaurantList(RESTAURANT_LIST* list) {
     }
     free(list);
 }
+
 // Adds the given restaurant struct at the end of the list and sets the current pointer to it, returns OK or ERR_ALLOC depending on the state
 int addItemToEndRestaurantList(RESTAURANT_LIST* list, RESTAURANT data) {
     RESTAURANT_ITEM* item = (RESTAURANT_ITEM*)malloc(sizeof(RESTAURANT_ITEM));
@@ -52,6 +58,7 @@ int addItemToEndRestaurantList(RESTAURANT_LIST* list, RESTAURANT data) {
     list->length++;
     return OK;
 }
+
 // Moves the current pointer to the next node if possible, returns OK, otherwise returns ERR_NO_NEXT
 int goToNextItemRestaurantList(RESTAURANT_LIST* list) {
     if (list->current != list->tail) {
@@ -61,6 +68,7 @@ int goToNextItemRestaurantList(RESTAURANT_LIST* list) {
     else
         return ERR_NO_NEXT;
 }
+
 // Returns the data of the node at current pointer (by placing it into the res param), returns OK or ERR depending on the state
 int getCurrentItemDataRestaurantList(RESTAURANT_LIST* list, RESTAURANT* res) {
     if (list->current != NULL) {
@@ -70,6 +78,7 @@ int getCurrentItemDataRestaurantList(RESTAURANT_LIST* list, RESTAURANT* res) {
     else
         return ERR;
 }
+
 // Edits the current item by the given data, returns OK or ERR depending on the state
 int editCurrentItemRestaurantList(RESTAURANT_LIST* list, RESTAURANT data) {
     if (list->current != NULL) {
@@ -79,6 +88,7 @@ int editCurrentItemRestaurantList(RESTAURANT_LIST* list, RESTAURANT data) {
     else
         return ERR;
 }
+
 // Removes the current item from the linked list if possible
 void removeCurrentItemRestaurantList(RESTAURANT_LIST* list) {
     if (list->current == NULL)
@@ -100,6 +110,7 @@ void removeCurrentItemRestaurantList(RESTAURANT_LIST* list) {
     list->current = temp;
     list->length--;
 }
+
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
 int moveCurrentToSearchedIdRestaurantList(RESTAURANT_LIST* list, unsigned int searchedValue) {
     if (searchedValue == list->tail->data.id) {
@@ -119,6 +130,7 @@ int moveCurrentToSearchedIdRestaurantList(RESTAURANT_LIST* list, unsigned int se
     }
     return ERR_NOT_FOUND;
 }
+
 // Reads string from the file until it reaches ; or the maxLength, returns OK or ERR_LOAD depending on the state
 int readStringFromFileRestaurant(FILE* input, char* output, unsigned int maxLength) {
     char symbol;
@@ -135,6 +147,7 @@ int readStringFromFileRestaurant(FILE* input, char* output, unsigned int maxLeng
     output[index] = '\0';
     return OK;
 }
+
 // Loads Restaurant database from file to a memory linked list, returns ERR_LOAD, OK or ERR_ALLOC depending on the outcome
 int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath) {
     FILE* input;
@@ -169,6 +182,7 @@ int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath) {
     fclose(input);
     return OK;
 }
+
 // Saves the restaurant linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileRestaurantList(RESTAURANT_LIST* list, char *outputFilePath) {
     FILE* output;

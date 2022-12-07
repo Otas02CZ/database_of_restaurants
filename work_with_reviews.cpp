@@ -1,7 +1,11 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "work_with_reviews.h"
 
 
-
+// Get user input for adding a review and add it to the end of the linked list
 void addReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int resId) {
 	unsigned int id = revList->length;
 	unsigned int score = -1;
@@ -35,6 +39,7 @@ void addReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int resI
 	}
 }
 
+// Get user input for editing a specified review and edit it
 void editReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id, unsigned int resId) {
 	system("cls");
 	printf("---------------------------------------\n");
@@ -72,6 +77,7 @@ void editReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id,
 		printf("The restaraunt associated with the review can not be found.\n");}
 }
 
+// Remove a review, check user approval
 void removeReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int id, unsigned int resId) {
 	system("cls");
 	printf("-----------------------------------------\n");
@@ -99,6 +105,7 @@ void removeReview(REVIEW_LIST* revList, RESTAURANT_LIST* resList, unsigned int i
 		printf("The restaurant associated with the review can not be found.\n");}
 }
 
+// Print base info about current review
 void printBaseInfoCurrentReview(REVIEW_LIST* revList) {
 	REVIEW rev;
 	if (getCurrentItemDataReviewList(revList, &rev) == OK) {
@@ -111,6 +118,7 @@ void printBaseInfoCurrentReview(REVIEW_LIST* revList) {
 	}
 }
 
+// Return overall score from the review list of the given restaurant
 float getOverallScoreForRestaurant(REVIEW_LIST* revList, unsigned int resId) {
 	if (revList->current == NULL)
 		return -1;
@@ -132,6 +140,7 @@ float getOverallScoreForRestaurant(REVIEW_LIST* revList, unsigned int resId) {
 		return score / reviewCount;
 }
 
+// Print a table of all reviews of the specified restaurant
 unsigned int printTableOfAllReviewsOfSpecifiedRestaurant(REVIEW_LIST* revList, unsigned int resId) {
 	printf("----------------------------------------------------\n");
 	printf("----ID----|------------TITLE-------------|--RATING--\n");
@@ -169,6 +178,7 @@ unsigned int printTableOfAllReviewsOfSpecifiedRestaurant(REVIEW_LIST* revList, u
 	return totalReviews;
 }
 
+// Return whether specified review is linked to given restaurant
 unsigned int isSpecifiedReviewUnderSpecifiedRestaurant(REVIEW_LIST* revList, unsigned int id, unsigned int resId) {
 	if (revList->length == 0) {
 		return false;

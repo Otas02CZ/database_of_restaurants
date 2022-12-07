@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "review_list.h"
 
 
@@ -21,6 +25,7 @@ REVIEW_LIST* createReviewList() {
     list->length = 0;
     return list;
 }
+
 // Completely erases and deallocates the review linked list, with all its nodes, deallocates the list root as well
 void eraseReviewList(REVIEW_LIST* list) {
     if (list == NULL)
@@ -30,6 +35,7 @@ void eraseReviewList(REVIEW_LIST* list) {
     }
     free(list);
 }
+
 // Adds the given review struct at the end of the list and sets the current pointer to it, returns OK or ERR_ALLOC depending on the state
 int addItemToEndReviewList(REVIEW_LIST* list, REVIEW data) {
     REVIEW_ITEM* item = (REVIEW_ITEM*)malloc(sizeof(REVIEW_ITEM));
@@ -51,6 +57,7 @@ int addItemToEndReviewList(REVIEW_LIST* list, REVIEW data) {
     list->length++;
     return OK;
 }
+
 // Moves the current pointer to the next node if possible, returns OK, otherwise returns ERR_NO_NEXT
 int goToNextItemReviewList(REVIEW_LIST* list) {
     if (list->current != list->tail) {
@@ -60,6 +67,7 @@ int goToNextItemReviewList(REVIEW_LIST* list) {
     else
         return ERR_NO_NEXT;
 }
+
 // Returns the data of the node at current pointer (by placing it into the res param), returns OK or ERR depending on the state
 int getCurrentItemDataReviewList(REVIEW_LIST* list, REVIEW* rev) {
     if (list->current != NULL) {
@@ -69,6 +77,7 @@ int getCurrentItemDataReviewList(REVIEW_LIST* list, REVIEW* rev) {
     else
         return ERR;
 }
+
 // Edits the current item by the given data, returns OK or ERR depending on the state
 int editCurrentItemReviewList(REVIEW_LIST* list, REVIEW data) {
     if (list->current != NULL) {
@@ -78,6 +87,7 @@ int editCurrentItemReviewList(REVIEW_LIST* list, REVIEW data) {
     else
         return ERR;
 }
+
 // Removes the current item from the linked list if possible
 void removeCurrentItemReviewList(REVIEW_LIST* list) {
     if (list->current == NULL)
@@ -99,6 +109,7 @@ void removeCurrentItemReviewList(REVIEW_LIST* list) {
     list->current = temp;
     list->length--;
 }
+
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
 int moveCurrentToSearchedIdReviewList(REVIEW_LIST* list, unsigned int searchedValue) {
     if (searchedValue == list->tail->data.id) {
@@ -118,6 +129,7 @@ int moveCurrentToSearchedIdReviewList(REVIEW_LIST* list, unsigned int searchedVa
     }
     return ERR_NOT_FOUND;
 }
+
 // Reads string from the file until it reaches ; or the maxLength, returns OK or ERR_LOAD depending on the state
 int readStringFromFileReview(FILE* input, char* output, unsigned int maxLength) {
     char symbol;
@@ -134,6 +146,7 @@ int readStringFromFileReview(FILE* input, char* output, unsigned int maxLength) 
     output[index] = '\0';
     return OK;
 }
+
 // Loads Review database from file to a memory linked list, returns ERR_LOAD, OK or ERR_ALLOC depending on the outcome
 int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
     FILE* input;
@@ -143,11 +156,11 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
     REVIEW rev;
 
     while (1) {
-        if (fscanf(input, "%u;\n", &rev.id) != 1) {
+        if (fscanf_s(input, "%u;\n", &rev.id) != 1) {
             printf("1");
             break;
         }
-        if (fscanf(input, "%u;\n", &rev.res_id) != 1) {
+        if (fscanf_s(input, "%u;\n", &rev.res_id) != 1) {
             fclose(input);
             printf("2");
             return ERR_LOAD;}
@@ -173,6 +186,7 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath) {
     fclose(input);
     return OK;
 }
+
 // Saves the review linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
     FILE* output;
@@ -192,7 +206,8 @@ int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath) {
     fclose(output);
     return OK;
 }
-// CHECK WORKING
+
+// remove all review items that are linked to a given restaurant from the linked list
 void removeAllItemsWithResIdReviewList(REVIEW_LIST* list, unsigned int resId) {
     list->current = list->head;
     while (list->length != 0) {
@@ -207,7 +222,8 @@ void removeAllItemsWithResIdReviewList(REVIEW_LIST* list, unsigned int resId) {
         }
     }
 }
-// CHECK WORKING
+
+// fix id sequence, by removing the missing ids
 void fixIdSequenceReviewList(REVIEW_LIST* list) {
     if (list->length == 0)
         return;

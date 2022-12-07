@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #pragma once
 
 #include "imports.h"
@@ -40,5 +44,3 @@ int loadFromFileReviewList(REVIEW_LIST* list, char *inputFilePath);
 int saveToFileReviewList(REVIEW_LIST* list, char *outputFilePath);
 void removeAllItemsWithResIdReviewList(REVIEW_LIST* list, unsigned int resId);
 void fixIdSequenceReviewList(REVIEW_LIST* list);
-
-// other search / view / sort methods ?

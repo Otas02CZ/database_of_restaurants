@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #pragma once
 
 #include "imports.h"
@@ -14,7 +18,3 @@ void removeMenu(MENU_LIST* menuList, RESTAURANT_LIST* resList, REVIEW_LIST* revL
 void printBaseInfoCurrentMenu(MENU_LIST* menuList);
 unsigned int printTableOfAllMenusOfSpecifiedRestaurant(MENU_LIST* menuList, unsigned int resId);
 unsigned int isSpecifiedMenuUnderSpecifiedRestaurant(MENU_LIST* menuList, unsigned int id, unsigned int resId);
-
-// add menu
-// edit menu
-// remove menu

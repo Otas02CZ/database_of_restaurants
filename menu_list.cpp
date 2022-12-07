@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "menu_list.h"
 
 
@@ -20,6 +24,7 @@ MENU_LIST* createMenuList() {
     list->length = 0;
     return list;
 }
+
 // Completely erases and deallocates the menu linked list, with all its nodes, deallocates the list root as well
 void eraseMenuList(MENU_LIST* list) {
     if (list == NULL)
@@ -29,6 +34,7 @@ void eraseMenuList(MENU_LIST* list) {
     }
     free(list);
 }
+
 // Adds the given menu struct at the end of the list and sets the current pointer to it, returns OK or ERR_ALLOC depending on the state
 int addItemToEndMenuList(MENU_LIST* list, MENU data) {
     MENU_ITEM* item = (MENU_ITEM*)malloc(sizeof(MENU_ITEM));
@@ -50,6 +56,7 @@ int addItemToEndMenuList(MENU_LIST* list, MENU data) {
     list->length++;
     return OK;
 }
+
 // Moves the current pointer to the next node if possible, returns OK, otherwise returns ERR_NO_NEXT
 int goToNextItemMenuList(MENU_LIST* list) {
     if (list->current != list->tail) {
@@ -59,6 +66,7 @@ int goToNextItemMenuList(MENU_LIST* list) {
     else
         return ERR_NO_NEXT;
 }
+
 // Returns the data of the node at current pointer (by placing it into the menu param), returns OK or ERR depending on the state
 int getCurrentItemDataMenuList(MENU_LIST* list, MENU* menu) {
     if (list->current != NULL) {
@@ -68,6 +76,7 @@ int getCurrentItemDataMenuList(MENU_LIST* list, MENU* menu) {
     else
         return ERR;
 }
+
 // Edits the current item by the given data, returns OK or ERR depending on the state
 int editCurrentItemMenuList(MENU_LIST* list, MENU data) {
     if (list->current != NULL) {
@@ -77,6 +86,7 @@ int editCurrentItemMenuList(MENU_LIST* list, MENU data) {
     else
         return ERR;
 }
+
 // Removes the current item from the linked list if possible
 void removeCurrentItemMenuList(MENU_LIST* list) {
     if (list->current == NULL)
@@ -98,6 +108,7 @@ void removeCurrentItemMenuList(MENU_LIST* list) {
     list->current = temp;
     list->length--;
 }
+
 // Searches for the id in the linked list and moves the current pointer to it, returns OK or ERR_NOT_FOUND
 int moveCurrentToSearchedIdMenuList(MENU_LIST* list, unsigned int searchedValue) {
     if (searchedValue == list->tail->data.id) {
@@ -117,6 +128,7 @@ int moveCurrentToSearchedIdMenuList(MENU_LIST* list, unsigned int searchedValue)
     }
     return ERR_NOT_FOUND;
 }
+
 // Reads string from the file until it reaches ; or the maxLength, returns OK or ERR_LOAD depending on the state
 int readStringFromFileMenu(FILE* input, char* output, unsigned int maxLength) {
     char symbol;
@@ -133,6 +145,7 @@ int readStringFromFileMenu(FILE* input, char* output, unsigned int maxLength) {
     output[index] = '\0';
     return OK;
 }
+
 // Loads menu database from file to a memory linked list, returns ERR_LOAD, OK or ERR_ALLOC depending on the outcome
 int loadFromFileMenuList(MENU_LIST* list, char* inputFilePath) {
     FILE* input;
@@ -167,6 +180,7 @@ int loadFromFileMenuList(MENU_LIST* list, char* inputFilePath) {
     fclose(input);
     return OK;
 }
+
 // Saves the menu linked list to file, returns ERR_SAVE or OK depending on the state
 int saveToFileMenuList(MENU_LIST* list, char* outputFilePath) {
     FILE* output;
@@ -186,7 +200,8 @@ int saveToFileMenuList(MENU_LIST* list, char* outputFilePath) {
     fclose(output);
     return OK;
 }
-// CHECK WORKING
+
+// removes all menu items that are linked to a given restaurant from the linked list
 void removeAllItemsWithResIdMenuList(MENU_LIST* list, unsigned int resId) {
     list->current = list->head;
     while (list->length != 0) {
@@ -201,7 +216,8 @@ void removeAllItemsWithResIdMenuList(MENU_LIST* list, unsigned int resId) {
         }
     }
 }
-// CHECK WORKING
+
+// fix id sequence, by removing missing ids
 void fixIdSequenceMenuList(MENU_LIST* list) {
     if (list->length == 0)
         return;

@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #include "work_with_restaurants.h"
 
 
@@ -104,6 +108,7 @@ int removeRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* 
 		return 1;
 	}
 }
+
 // fixes the ids of the restaurants in db and the links to the restaurant db from review and menu list
 void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList) {
 	if (resList->length == 0)
@@ -250,6 +255,7 @@ void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList,
 	}
 }
 
+// function to search by name in restaurants, by given searchQuery
 void searchByNameInRestaurants(RESTAURANT_LIST* resList, char* searchQuery) {
 	if (resList->length == 0)
 		return;
@@ -259,7 +265,7 @@ void searchByNameInRestaurants(RESTAURANT_LIST* resList, char* searchQuery) {
 
 
 	do {
-		strcpy(currentName, resList->current->data.name);
+		strcpy_s(currentName, sizeof(resList->current->data.name), resList->current->data.name);
 		convertStringToLowerCase(currentName);
 		if (strstr(currentName, searchQuery) != NULL)
 			resList->current->data.visible = true;
@@ -268,6 +274,7 @@ void searchByNameInRestaurants(RESTAURANT_LIST* resList, char* searchQuery) {
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
 
+// Makes all restaurants visible - removes the effect of searching
 void turnAllRestaurantsVisibility(RESTAURANT_LIST* resList, bool value) {
 	if (resList->length == 0)
 		return;
@@ -278,12 +285,14 @@ void turnAllRestaurantsVisibility(RESTAURANT_LIST* resList, bool value) {
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
 
+// Swap the data of two given restaurant items
 void swapRestaurants(RESTAURANT_ITEM* res1, RESTAURANT_ITEM* res2) {
 	RESTAURANT temp = res1->data;
 	res1->data = res2->data;
 	res2->data = temp;
 }
 
+// Sort restaurants by given specifier (ID, NAME, RATING), the data of the linked nodes are swaped, not the nodes themselves
 void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int specifier) {
 	if (resList->length == 0)
 		return;
@@ -296,27 +305,15 @@ void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, REVIEW_LIST* r
 			switch (specifier) {
 			case ID:
 				if (j->data.id > j->next->data.id) {
-					swapRestaurants(j, j->next);
-					/*RESTAURANT temp = j->data;
-					j->data = j->next->data;
-					j->next->data = temp;*/
-				}
+					swapRestaurants(j, j->next);}
 				break;
 			case NAME:
 				if (strcmp(j->data.name, j->next->data.name) > 0) {
-					swapRestaurants(j, j->next);
-					/*RESTAURANT temp = j->data;
-					j->data = j->next->data;
-					j->next->data = temp;*/
-				}
+					swapRestaurants(j, j->next);}
 				break;
 			case RATING:
-				if (getOverallScoreForRestaurant(revList, j->data.id) > getOverallScoreForRestaurant(revList, j->next->data.id)) {
-					swapRestaurants(j, j->next);
-					/*RESTAURANT temp = j->data;
-					j->data = j->next->data;
-					j->next->data = temp;*/
-				}
+				if (getOverallScoreForRestaurant(revList, j->data.id) < getOverallScoreForRestaurant(revList, j->next->data.id)) {
+					swapRestaurants(j, j->next);}
 				break;
 			}
 			j = j->next;
@@ -324,4 +321,59 @@ void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, REVIEW_LIST* r
 		j = resList->head;
 		i = i->next;
 	}
+}
+
+// Prints overview of all menu items of all restaurants also applies searchQuery for meal name if requiered
+void printMenuOverviewForAllRestaurantsWithSearch(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, char* searchQuery) {
+	system("cls");
+	printf("-------------------------------\n");
+	printf("---------MENU OVERVIEW---------\n");
+	printf("-------------------------------\n");
+
+	if (resList->length == 0) {
+		printf("THERE ARE NO RESTAURANTS.\n");
+		printf("-------------------------------\n");
+		return;
+	}
+	if (menuList->length == 0) {
+		printf("THERE ARE NO MENUS.\n");
+		printf("-------------------------------\n");
+		return;
+	}
+
+	resList->current = resList->head;
+	convertStringToLowerCase(searchQuery);
+	do {
+		menuList->current = menuList->head;
+		printf("\n==========================================\n");
+		printf("--RESTAURANT\n");
+		printBaseInfoCurrentRestaurant(resList, revList);
+		printf("-MENU-\n");
+		unsigned int menuCount = 0;
+		do {
+			if (resList->current->data.id == menuList->current->data.res_id) {
+				if (searchQuery == ";" || strlen(searchQuery) == 0) {
+					printBaseInfoCurrentMenu(menuList);
+					menuCount++;
+				}
+				else {
+					char mealName[31];
+					strcpy_s(mealName, sizeof(mealName), menuList->current->data.name);
+					convertStringToLowerCase(mealName);
+					if (strstr(mealName, searchQuery) != NULL) {
+						printBaseInfoCurrentMenu(menuList);
+						menuCount++;}
+				}
+			}
+		} while (goToNextItemMenuList(menuList) != ERR_NO_NEXT);
+		if (menuCount == 0)
+			printf("This restaurant has no menu, or there isn't a meal that would satisfy the search query.\n");
+		else {
+			printf("Meals in menu %u.\n", menuCount);
+		}
+		printf("==========================================\n");
+
+	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
+
+	printf("-------------------------------\n");
 }

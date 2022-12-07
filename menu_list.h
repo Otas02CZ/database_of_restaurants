@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #pragma once
 
 #include "imports.h"
@@ -39,5 +43,3 @@ int loadFromFileMenuList(MENU_LIST* list, char* inputFilePath);
 int saveToFileMenuList(MENU_LIST* list, char* outputFilePath);
 void removeAllItemsWithResIdMenuList(MENU_LIST* list, unsigned int resId);
 void fixIdSequenceMenuList(MENU_LIST* list);
-
-// other search / view / sort methods ?

@@ -1,3 +1,7 @@
+//Author        : Otakar Koci @Otas02CZ 247555
+//Description   : BUT - BPC-PC1T - semestral project
+//YEAR          : 2022
+
 #pragma once
 
 #include "imports.h"
@@ -39,5 +43,3 @@ void removeCurrentItemRestaurantList(RESTAURANT_LIST* list);
 int moveCurrentToSearchedIdRestaurantList(RESTAURANT_LIST* list, unsigned int searchedValue);
 int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath);
 int saveToFileRestaurantList(RESTAURANT_LIST* list, char *outputFilePath);
-
-// other search / view / sort methods ?
