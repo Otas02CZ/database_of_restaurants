@@ -35,9 +35,10 @@ int main(int argv, char* argc[]) {
     fixRestaurantIdSequenceFixEveryLink(restaurants, reviews, menus);
 
     // TODO MENU
-    unsigned int isRunning = 1, isAsking = 1, isReviewOfCurrentRestaurant = 0, isMenuOfCurrentRestaurant = 0; // declaring here because of the switch-case problem
+    unsigned int isRunning = 1, isAsking = 1, isReviewOfCurrentRestaurant = 0, isMenuOfCurrentRestaurant = 0, usingSearch = 0; // declaring here because of the switch-case problem
     int revId, resId, menuId;
     int sortMethod = ID;
+    char searchQuery[31];
     while (isRunning) {
         system("cls");
         printf("--------------------------------------\n");
@@ -48,6 +49,10 @@ int main(int argv, char* argc[]) {
         printf(" 3 - APP INFO\n");
         printf(" 4 - SAVE AND EXIT\n");
         printf("--------------------------------------\n");
+        if (usingSearch) {
+            printf("Currently only restaurants that follow the search query \"%s\" are shown.\n", searchQuery);}
+        else {
+            printf("All restaurants are shown. No search is enabled.\n");}
         printf("- Please choose from menu [1/2/3/4]: ");
         int choice = getNumericInput(); // input checking function
         switch (choice) {
@@ -80,6 +85,11 @@ int main(int argv, char* argc[]) {
                             isRunning = 0;
                             break;
                         }
+                        if (usingSearch) {
+                            printf("Currently only restaurants that follow the search query \"%s\" are shown.\n", searchQuery);
+                            printf("But you can open any restaurant if you input its id.\n");}
+                        else {
+                            printf("All restaurants are shown. No search is enabled.\n");}
                         printf("Please select restaurant from the list, by its id.\nOr input -1 to exit this input sequence: ");
                         resId = -2;
                         while (resId < 0 || resId > (int)(restaurants->length - 1)) {
@@ -230,8 +240,7 @@ int main(int argv, char* argc[]) {
                                     }
                                     if (isAsking) {
                                         removeMenu(menus, restaurants, reviews, menuId, resId);
-                                        pressEnterToContinue();
-                                    }
+                                        pressEnterToContinue();}
                                     break;
                                 case 9:
                                     isRunning = 0;
@@ -246,8 +255,8 @@ int main(int argv, char* argc[]) {
                     addRestaurant(restaurants);
                     pressEnterToContinue();
                     break;
-                case 3:
-                    // sort by given key - name, rating
+                case 3: // sorting
+                    // sort by given key - name, rating, id
                     // when adding or removing res - sort back to sorting by id
                     // 
                     // after that sort it again
@@ -259,11 +268,20 @@ int main(int argv, char* argc[]) {
                     // 
                     // add sorting option
                     break;
-                case 4:
-                    // add searching option
-                    // maybe add new variable to the res struct - determining whether is shown or not
-                    // then implement functions and variables to search by given key, and hold the state
-                    //
+                case 4: // searching
+                    system("cls");
+                    printf("-------------------------------\n");
+                    printf("--------SEARCH BY NAME---------\n");
+                    printf("-------------------------------\n");
+                    printf("We are searching among restaurants by their names.\n");
+                    printf("Please insert your search query or ; to view all restaurants: ");
+                    getStringInputUntilNewline(searchQuery, sizeof(searchQuery));
+                    if (strcmp(";", searchQuery) == 0) {
+                        usingSearch = 0;
+                        turnAllRestaurantsVisibility(restaurants, true);}
+                    else {
+                        usingSearch = 1;
+                        searchByNameInRestaurants(restaurants, searchQuery);}
                     break;
                 case 5:
                     isRunning = 0;

@@ -8,6 +8,7 @@ typedef struct RESTAURANT {
     char                address[41];
     char                type[21];
     char                description[401];
+    bool                visible;
 }RESTAURANT;
 
 typedef struct RESTAURANT_ITEM RESTAURANT_ITEM;

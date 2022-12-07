@@ -14,3 +14,4 @@ void getStringInputUntilEOF(char* output, unsigned int maxSize);
 void getStringInputUntilNewline(char* output, unsigned int maxSize);
 int acceptOperation();
 void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu);
+void convertStringToLowerCase(char* text);

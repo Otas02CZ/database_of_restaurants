@@ -148,3 +148,8 @@ void printAppInfo(RESTAURANT_LIST* res, REVIEW_LIST* rev, MENU_LIST* menu) {
     printf("---------------------------------\n");
     pressEnterToContinue();
 }
+
+void convertStringToLowerCase(char* text) {
+    for (unsigned int i = 0; i < strlen(text); i++)
+        text[i] = tolower(text[i]);
+}

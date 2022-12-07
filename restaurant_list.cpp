@@ -5,6 +5,7 @@
 RESTAURANT createRestaurant(unsigned int id, char *name, char *address, char *type, char *description) {
     RESTAURANT res;
     res.id = id;
+    res.visible = true;
     strcpy_s(res.type, sizeof(res.type), type);
     strcpy_s(res.name, sizeof(res.name), name);
     strcpy_s(res.address, sizeof(res.address), address);
@@ -159,7 +160,8 @@ int loadFromFileRestaurantList(RESTAURANT_LIST* list, char *inputFilePath) {
         if ((readStringFromFileRestaurant(input, res.description, sizeof(res.description)) == ERR_LOAD)) {
             fclose(input);
             return ERR_LOAD;}
-        printf("%u %s %s %s %s\n", res.id, res.name, res.address, res.type, res.description);
+        res.visible = true;
+        //printf("%u %s %s %s %s\n", res.id, res.name, res.address, res.type, res.description);
         if (addItemToEndRestaurantList(list, res) == ERR_ALLOC) {
             fclose(input);
             return ERR_ALLOC;}

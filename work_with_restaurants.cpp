@@ -153,6 +153,8 @@ void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList) {
 			if (getCurrentItemDataRestaurantList(resList, &res) != OK)
 				printf("Failed to retrieve data for this item.\n");
 			else {
+				if (!res.visible)
+					continue;
 				printf("%u", res.id);
 				unsigned int digits = 0, number = res.id;
 				if (number == 0) number++;
@@ -245,5 +247,52 @@ void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList,
 	}
 	else {
 		printf("Restaurant specified can not be found.\n");
+	}
+}
+
+void searchByNameInRestaurants(RESTAURANT_LIST* resList, char* searchQuery) {
+	if (resList->length == 0)
+		return;
+	resList->current = resList->head;
+	char currentName[31];
+	convertStringToLowerCase(searchQuery);
+
+
+	do {
+		strcpy(currentName, resList->current->data.name);
+		convertStringToLowerCase(currentName);
+		if (strstr(currentName, searchQuery) != NULL)
+			resList->current->data.visible = true;
+		else
+			resList->current->data.visible = false;
+	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
+}
+
+void turnAllRestaurantsVisibility(RESTAURANT_LIST* resList, bool value) {
+	if (resList->length == 0)
+		return;
+	resList->current = resList->head;
+
+	do {
+		resList->current->data.visible = value;
+	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
+}
+
+void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, unsigned int specifier) {
+	if (resList->length == 0)
+		return;
+	resList->current = resList->head;
+
+	switch (specifier) {
+	case ID:
+
+		// sort by id
+		break;
+	case NAME:
+		// sort by name
+		break;
+	case RATING:
+		// sort by rating
+		break;
 	}
 }

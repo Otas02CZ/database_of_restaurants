@@ -17,5 +17,7 @@ void fixRestaurantIdSequenceFixEveryLink(RESTAURANT_LIST* resList, REVIEW_LIST* 
 void printTableOfRestaurants(RESTAURANT_LIST* resList, REVIEW_LIST* revList);
 void printSpecialInfoCurrentRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id);
 void printAllInfoAboutRestaurant(RESTAURANT_LIST* resList, REVIEW_LIST* revList, MENU_LIST* menuList, unsigned int id);
+void searchByNameInRestaurants(RESTAURANT_LIST* resList, char* searchQuery);
+void turnAllRestaurantsVisibility(RESTAURANT_LIST* resList, bool value);
 
 // PRINT INFO BY RESTAURANT ID AND PRINT SPECIAL RESTAURANT INFO (ADDITIONAL)
