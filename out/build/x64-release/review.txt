@@ -1,17 +1,17 @@
 0;
-2;
+1;
 Levna dobra;
 10;
 Nabizi dobre a chutne jidlo, ktere je i levne.
 Lepsi nez mnohe restaurace v Brne.;
 1;
-2;
+1;
 Ujde to;
 7;
 Je vyhodna pro studenty.
 Da se tam v pohode najist, ale zazraky proste necekejte.;
 2;
-2;
+1;
 Super, ale pozor na lednice!;
 10;
 Jj, je levna, dobra a vyhodna, ale jednou jsem vychazel
@@ -19,10 +19,9 @@ z menzy po obede, a skupinka hasicu se zrovna snazila sundat
 lednicku z nedalekeho stromu.
 Ocekavejte neocekavatelne.;
 3;
-1;
-JE TAM SAKRA DRAHO;
-1;
-JE TAM DRAHO
-JE TAM DRAHO
-JE TAM DRAHO
-JE TAM DRAHO;
+3;
+Super ;
+10;
+
+chutne levne rychle
+naprosto perfektni;
