@@ -1,13 +1,11 @@
 # ninja log v5
-20	494	6920620911528686	CMakeFiles/database_of_restaurants.dir/restaurant_list.cpp.obj	6576d4ede85cd348
-41	496	6920620911518668	CMakeFiles/database_of_restaurants.dir/work_with_all_lists.cpp.obj	929102ed16e9fac0
-30	496	6920620911528686	CMakeFiles/database_of_restaurants.dir/menu_list.cpp.obj	a16efb298f577f53
-56	499	6920620911588757	CMakeFiles/database_of_restaurants.dir/work_with_reviews.cpp.obj	784c98f5d3477770
-63	500	6920620911588757	CMakeFiles/database_of_restaurants.dir/work_with_menus.cpp.obj	c79f66022e50f86
-47	500	6920620911578722	CMakeFiles/database_of_restaurants.dir/work_with_restaurants.cpp.obj	b0e3e3faea53e1f7
-35	506	6920620911668810	CMakeFiles/database_of_restaurants.dir/functions.cpp.obj	1720f3ae85176dbc
-25	507	6920620911678827	CMakeFiles/database_of_restaurants.dir/review_list.cpp.obj	6b2b5d0ec7b09526
-14	507	6920620911678827	CMakeFiles/database_of_restaurants.dir/database_of_restaurants.cpp.obj	20e7e58b572b6d93
-507	966	6920620916149243	database_of_restaurants.exe	6a090171215c521
-5	291	6920622493146847	CMakeFiles/database_of_restaurants.dir/work_with_restaurants.cpp.obj	b0e3e3faea53e1f7
-291	442	6920622494422375	database_of_restaurants.exe	6a090171215c521
+51	569	6921062094729444	CMakeFiles/database_of_restaurants.dir/work_with_all_lists.cpp.obj	4ea7761e1b95aaa9
+40	589	6921062094885681	CMakeFiles/database_of_restaurants.dir/menu_list.cpp.obj	e23ac0e7c670f8bb
+46	590	6921062094885681	CMakeFiles/database_of_restaurants.dir/functions.cpp.obj	67e34f68ce0ce70e
+20	592	6921062095041956	CMakeFiles/database_of_restaurants.dir/database_of_restaurants.cpp.obj	7db84ae298ae58c5
+34	593	6921062095041956	CMakeFiles/database_of_restaurants.dir/review_list.cpp.obj	bef3fec30055719f
+80	606	6921062095198215	CMakeFiles/database_of_restaurants.dir/work_with_reviews.cpp.obj	a87f3e76aaed7404
+27	642	6921062095511358	CMakeFiles/database_of_restaurants.dir/restaurant_list.cpp.obj	48fd289984c6aec8
+578	762	6921062096771627	CMakeFiles/database_of_restaurants.dir/work_with_menus.cpp.obj	f7aac18e2d642892
+21	222	6921063150246071	CMakeFiles/database_of_restaurants.dir/work_with_restaurants.cpp.obj	48bacfdcc6df2bb3
+223	724	6921063155013556	database_of_restaurants.exe	88d36f35bb470a51

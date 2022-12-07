@@ -278,21 +278,50 @@ void turnAllRestaurantsVisibility(RESTAURANT_LIST* resList, bool value) {
 	} while (goToNextItemRestaurantList(resList) != ERR_NO_NEXT);
 }
 
-void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, unsigned int specifier) {
+void swapRestaurants(RESTAURANT_ITEM* res1, RESTAURANT_ITEM* res2) {
+	RESTAURANT temp = res1->data;
+	res1->data = res2->data;
+	res2->data = temp;
+}
+
+void sortRestaurantListByGivenSpecifier(RESTAURANT_LIST* resList, REVIEW_LIST* revList, unsigned int specifier) {
 	if (resList->length == 0)
 		return;
 	resList->current = resList->head;
-
-	switch (specifier) {
-	case ID:
-
-		// sort by id
-		break;
-	case NAME:
-		// sort by name
-		break;
-	case RATING:
-		// sort by rating
-		break;
+	RESTAURANT_ITEM *i, *j;
+	i = resList->head;
+	j = resList->head;
+	while (i != NULL) {
+		while (j->next != NULL) {
+			switch (specifier) {
+			case ID:
+				if (j->data.id > j->next->data.id) {
+					swapRestaurants(j, j->next);
+					/*RESTAURANT temp = j->data;
+					j->data = j->next->data;
+					j->next->data = temp;*/
+				}
+				break;
+			case NAME:
+				if (strcmp(j->data.name, j->next->data.name) > 0) {
+					swapRestaurants(j, j->next);
+					/*RESTAURANT temp = j->data;
+					j->data = j->next->data;
+					j->next->data = temp;*/
+				}
+				break;
+			case RATING:
+				if (getOverallScoreForRestaurant(revList, j->data.id) > getOverallScoreForRestaurant(revList, j->next->data.id)) {
+					swapRestaurants(j, j->next);
+					/*RESTAURANT temp = j->data;
+					j->data = j->next->data;
+					j->next->data = temp;*/
+				}
+				break;
+			}
+			j = j->next;
+		}
+		j = resList->head;
+		i = i->next;
 	}
 }

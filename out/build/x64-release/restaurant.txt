@@ -1,12 +1,17 @@
 0;
-menza vut;
-purkynova xxaabb/ccdd;
-studentska, levna;
-proste vut menza
-na purkynich
-doufejte ze na vas nespadne lednicka;
+MENZA - VUT;
+purkynova 93;
+levna;
+vut menza, levna, u koleji
+maji levne menu;
 1;
 ceska dobr restaurace;
 fjksdjfkads;
 fkskdjfkjsf);
 jdkfjdsk;
+2;
+;
+;
+;
+
+;
