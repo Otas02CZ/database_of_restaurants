@@ -1,0 +1,10 @@
+^D:\GIT\DATABASE_OF_RESTAURANTS\BUILD_WIN\CMAKEFILES\EECC49F74E5E2FFBD70A0A06147606BC\GENERATE.STAMP.RULE
+setlocal
+D:\scoop\apps\cmake\3.25.2\bin\cmake.exe -SD:/Git/database_of_restaurants/src -BD:/Git/database_of_restaurants/build_win --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Git/database_of_restaurants/build_win/database_of_restaurants.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
