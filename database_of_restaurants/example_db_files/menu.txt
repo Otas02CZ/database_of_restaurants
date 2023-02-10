@@ -1,0 +1,11 @@
+0;
+1;
+MENU R1 - polevka a hlavni;
+Polevka jarni zeleninova
+Hlavni chod Klobasa s hrachovou kasi, chleb.
+Alergeny Muze obsahovat stopy hrachu a dalsich surovin.;
+1;
+3;
+Vypecky;
+Vypecky, zeli, knedle.
+Alergeny : na vyzadani u obsluhy;

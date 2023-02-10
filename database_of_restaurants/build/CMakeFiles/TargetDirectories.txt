@@ -1,0 +1,3 @@
+/mnt/SSD_SHARE/Git/database_of_restaurants/database_of_restaurants/build/CMakeFiles/database_of_restaurants.dir
+/mnt/SSD_SHARE/Git/database_of_restaurants/database_of_restaurants/build/CMakeFiles/edit_cache.dir
+/mnt/SSD_SHARE/Git/database_of_restaurants/database_of_restaurants/build/CMakeFiles/rebuild_cache.dir
